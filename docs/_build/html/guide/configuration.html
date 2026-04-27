@@ -1,0 +1,1120 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="Contribution" href="contribution.html"><link rel="prev" title="Installation" href="installation.html">
+        <link rel="prefetch" href="../_static/rsl_rl_logo_light.svg" as="image">
+        <link rel="prefetch" href="../_static/rsl_rl_logo_dark.svg" as="image">
+
+    <!-- Generated with Sphinx 8.1.3 and Furo 2025.12.19 -->
+        <title>Configuration - RSL-RL</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=2a5a7561" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  --color-highlight-on-target: rgba(12, 121, 190, 0.5);
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-highlight-on-target: rgba(12, 121, 190, 0.5);
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-highlight-on-target: rgba(12, 121, 190, 0.5);
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">RSL-RL</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../_static/rsl_rl_logo_light.svg" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../_static/rsl_rl_logo_dark.svg" alt="Dark Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribution.html">Contribution</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/algorithms.html">Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/env.html">Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/extensions.html">Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/models.html">Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/runners.html">Runners</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/storage.html">Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/utils.html">Utils</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Project Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/leggedrobotics/rsl_rl">GitHub Repository</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pypi.org/project/rsl-rl-lib/">PyPI Package</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../_sources/guide/configuration.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="configuration">
+<h1>Configuration<a class="headerlink" href="#configuration" title="Link to this heading">¶</a></h1>
+<p>RSL-RL is configured with a dictionary that is passed to RSL-RL’s runner during initialization. The dictionary is
+usually read from a YAML file or constructed from Python dataclasses, such as in
+<a class="reference external" href="https://github.com/isaac-sim/IsaacLab/blob/main/source/isaaclab_rl/isaaclab_rl/rsl_rl/rl_cfg.py">Isaac Lab</a>.
+It is nested to reflect the structure of the library, and follows this pattern:</p>
+<figure class="align-center">
+<a class="light-only reference internal image-reference" href="../_images/rsl_rl_config_light.svg"><img alt="../_images/rsl_rl_config_light.svg" class="light-only" src="../_images/rsl_rl_config_light.svg" style="width: 100%;" />
+</a>
+</figure>
+<figure class="align-center">
+<a class="dark-only reference internal image-reference" href="../_images/rsl_rl_config_dark.svg"><img alt="../_images/rsl_rl_config_dark.svg" class="dark-only" src="../_images/rsl_rl_config_dark.svg" style="width: 100%;" />
+</a>
+</figure>
+<p>The top level represents the runner configuration, which is composed of general settings and configuration dictionaries
+for the algorithm (e.g. PPO), as well as for the models used by the algorithm (e.g. actor and critic). The algorithm
+dictionary contains the parameters of the algorithm, and may contain one or more configuration dictionaries for
+extensions. The model dictionaries contain the parameters of the models, and may contain a configuration dictionary for
+a distribution.</p>
+<p>In the following sections, we list the available settings for each configuration component, provide a minimal
+<a class="reference internal" href="#example-configuration"><span class="std std-ref">example configuration in YAML format</span></a>, and explain how
+<a class="reference internal" href="#observation-configuration"><span class="std std-ref">observations are configured</span></a>.</p>
+<section id="runner-configuration">
+<span id="id1"></span><h2>Runner Configuration<a class="headerlink" href="#runner-configuration" title="Link to this heading">¶</a></h2>
+<p>Currently, RSL-RL implements two runner classes:
+<a class="reference internal" href="../api/runners.html#rsl_rl.runners.on_policy_runner.OnPolicyRunner" title="rsl_rl.runners.on_policy_runner.OnPolicyRunner"><code class="xref py py-class docutils literal notranslate"><span class="pre">OnPolicyRunner</span></code></a> and
+<a class="reference internal" href="../api/runners.html#rsl_rl.runners.distillation_runner.DistillationRunner" title="rsl_rl.runners.distillation_runner.DistillationRunner"><code class="xref py py-class docutils literal notranslate"><span class="pre">DistillationRunner</span></code></a>. The
+<a class="reference internal" href="../api/runners.html#rsl_rl.runners.on_policy_runner.OnPolicyRunner" title="rsl_rl.runners.on_policy_runner.OnPolicyRunner"><code class="xref py py-class docutils literal notranslate"><span class="pre">OnPolicyRunner</span></code></a> is configured as follows:</p>
+<div class="table-wrapper no-wrap-type-column docutils container">
+<table class="no-wrap-type-column docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">num_steps_per_env</span></code></p></td>
+<td><p>int</p></td>
+<td><p>required</p></td>
+<td><p>Number of environment steps collected per iteration.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">obs_groups</span></code></p></td>
+<td><p>dict[str, list[str]]</p></td>
+<td><p>required</p></td>
+<td><p>Mapping from observation sets to observation groups coming from the environment. See <a class="reference internal" href="#observation-configuration"><span class="std std-ref">here</span></a> for more details.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">save_interval</span></code></p></td>
+<td><p>int</p></td>
+<td><p>required</p></td>
+<td><p>Number of iterations between checkpoints.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">logger</span></code></p></td>
+<td><p>str</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;tensorboard&quot;</span></code></p></td>
+<td><p>Logging service to use. Valid values: <code class="docutils literal notranslate"><span class="pre">&quot;tensorboard&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;wandb&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;neptune&quot;</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">wandb_project</span></code></p></td>
+<td><p>str</p></td>
+<td><p>required for W&amp;B</p></td>
+<td><p>W&amp;B project name used by the W&amp;B writer.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">neptune_project</span></code></p></td>
+<td><p>str</p></td>
+<td><p>required for Neptune</p></td>
+<td><p>Neptune project name used by the Neptune writer.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">run_name</span></code></p></td>
+<td><p>str</p></td>
+<td><p>missing</p></td>
+<td><p>Optional run label shown in the console output.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">check_for_nan</span></code></p></td>
+<td><p>bool</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
+<td><p>Whether to check for NaN values coming from the environment.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">torch_compile_mode</span></code></p></td>
+<td><p>str | None</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+<td><p>Compile mode for the PyTorch models to accelerate training.
+Valid values: <code class="docutils literal notranslate"><span class="pre">None</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;default&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;max-autotune-no-cudagraphs&quot;</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">algorithm</span></code></p></td>
+<td><p>dict</p></td>
+<td><p>required</p></td>
+<td><p>RL algorithm configuration.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">actor</span></code></p></td>
+<td><p>dict</p></td>
+<td><p>required</p></td>
+<td><p>Actor model configuration.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">critic</span></code></p></td>
+<td><p>dict</p></td>
+<td><p>required</p></td>
+<td><p>Critic model configuration.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>For the <a class="reference internal" href="../api/runners.html#rsl_rl.runners.distillation_runner.DistillationRunner" title="rsl_rl.runners.distillation_runner.DistillationRunner"><code class="xref py py-class docutils literal notranslate"><span class="pre">DistillationRunner</span></code></a>, the <code class="docutils literal notranslate"><span class="pre">actor</span></code> and <code class="docutils literal notranslate"><span class="pre">critic</span></code> keys are simply
+replaced by <code class="docutils literal notranslate"><span class="pre">student</span></code> and <code class="docutils literal notranslate"><span class="pre">teacher</span></code> keys, respectively:</p>
+<div class="table-wrapper no-wrap-type-column docutils container">
+<table class="no-wrap-type-column docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">student</span></code></p></td>
+<td><p>dict</p></td>
+<td><p>required</p></td>
+<td><p>Student model configuration.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">teacher</span></code></p></td>
+<td><p>dict</p></td>
+<td><p>required</p></td>
+<td><p>Teacher model configuration.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="algorithm-configuration">
+<h2>Algorithm Configuration<a class="headerlink" href="#algorithm-configuration" title="Link to this heading">¶</a></h2>
+<p>RSL-RL implements two algorithms, <a class="reference internal" href="../api/algorithms.html#rsl_rl.algorithms.ppo.PPO" title="rsl_rl.algorithms.ppo.PPO"><code class="xref py py-class docutils literal notranslate"><span class="pre">PPO</span></code></a> and
+<a class="reference internal" href="../api/algorithms.html#rsl_rl.algorithms.distillation.Distillation" title="rsl_rl.algorithms.distillation.Distillation"><code class="xref py py-class docutils literal notranslate"><span class="pre">Distillation</span></code></a>, which are configured as follows.</p>
+<section id="ppo">
+<h3>PPO<a class="headerlink" href="#ppo" title="Link to this heading">¶</a></h3>
+<div class="table-wrapper no-wrap-type-column docutils container">
+<table class="no-wrap-type-column docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">class_name</span></code></p></td>
+<td><p>str</p></td>
+<td><p>required</p></td>
+<td><p>Algorithm class name. Valid values: <code class="docutils literal notranslate"><span class="pre">&quot;PPO&quot;</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">optimizer</span></code></p></td>
+<td><p>str</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;adam&quot;</span></code></p></td>
+<td><p>Optimizer used for policy/value updates. Valid values: see <a class="reference internal" href="../api/utils.html#rsl_rl.utils.utils.resolve_optimizer" title="rsl_rl.utils.utils.resolve_optimizer"><code class="xref py py-func docutils literal notranslate"><span class="pre">resolve_optimizer()</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">learning_rate</span></code></p></td>
+<td><p>float</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.001</span></code></p></td>
+<td><p>Optimizer learning rate.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">num_learning_epochs</span></code></p></td>
+<td><p>int</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">5</span></code></p></td>
+<td><p>Number of optimization epochs per iteration.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">num_mini_batches</span></code></p></td>
+<td><p>int</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">4</span></code></p></td>
+<td><p>Number of mini-batches per iteration.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">schedule</span></code></p></td>
+<td><p>str</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;adaptive&quot;</span></code></p></td>
+<td><p>Learning-rate schedule. Valid values: <code class="docutils literal notranslate"><span class="pre">&quot;adaptive&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;fixed&quot;</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">value_loss_coef</span></code></p></td>
+<td><p>float</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1.0</span></code></p></td>
+<td><p>Coefficient for the value-function loss.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">clip_param</span></code></p></td>
+<td><p>float</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.2</span></code></p></td>
+<td><p>PPO clipping parameter for surrogate/value clipping.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">use_clipped_value_loss</span></code></p></td>
+<td><p>bool</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
+<td><p>Whether to clip the value loss.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">desired_kl</span></code></p></td>
+<td><p>float</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.01</span></code></p></td>
+<td><p>Target KL divergence used by the adaptive learning-rate schedule.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">entropy_coef</span></code></p></td>
+<td><p>float</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.01</span></code></p></td>
+<td><p>Entropy regularization coefficient.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gamma</span></code></p></td>
+<td><p>float</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.99</span></code></p></td>
+<td><p>Discount factor.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">lam</span></code></p></td>
+<td><p>float</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.95</span></code></p></td>
+<td><p>GAE lambda parameter.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">max_grad_norm</span></code></p></td>
+<td><p>float</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1.0</span></code></p></td>
+<td><p>Maximum gradient norm for gradient clipping.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">normalize_advantage_per_mini_batch</span></code></p></td>
+<td><p>bool</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+<td><p>Whether to normalize advantages for each mini-batch instead of across the entire rollout.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">share_cnn_encoders</span></code></p></td>
+<td><p>bool</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+<td><p>Whether to share the CNN networks between actor and critic in case
+the <a class="reference internal" href="../api/models.html#rsl_rl.models.cnn_model.CNNModel" title="rsl_rl.models.cnn_model.CNNModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">CNNModel</span></code></a> is used.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rnd_cfg</span></code></p></td>
+<td><p>dict | None</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+<td><p>Optional RND extension configuration.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">symmetry_cfg</span></code></p></td>
+<td><p>dict | None</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+<td><p>Optional symmetry extension configuration.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="distillation">
+<h3>Distillation<a class="headerlink" href="#distillation" title="Link to this heading">¶</a></h3>
+<div class="table-wrapper no-wrap-type-column docutils container">
+<table class="no-wrap-type-column docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">class_name</span></code></p></td>
+<td><p>str</p></td>
+<td><p>required</p></td>
+<td><p>Algorithm class name. Valid values: <code class="docutils literal notranslate"><span class="pre">&quot;Distillation&quot;</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">optimizer</span></code></p></td>
+<td><p>str</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;adam&quot;</span></code></p></td>
+<td><p>Optimizer used for student updates. Valid values: see <a class="reference internal" href="../api/utils.html#rsl_rl.utils.utils.resolve_optimizer" title="rsl_rl.utils.utils.resolve_optimizer"><code class="xref py py-func docutils literal notranslate"><span class="pre">resolve_optimizer()</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">learning_rate</span></code></p></td>
+<td><p>float</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1e-3</span></code></p></td>
+<td><p>Optimizer learning rate.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">num_learning_epochs</span></code></p></td>
+<td><p>int</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>Number of optimization epochs per iteration.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gradient_length</span></code></p></td>
+<td><p>int</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">15</span></code></p></td>
+<td><p>Gradient backpropagation length.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">max_grad_norm</span></code></p></td>
+<td><p>float | None</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+<td><p>Maximum gradient norm for gradient clipping.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">loss_type</span></code></p></td>
+<td><p>str</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;mse&quot;</span></code></p></td>
+<td><p>Loss type. Valid values: <code class="docutils literal notranslate"><span class="pre">&quot;mse&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;huber&quot;</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="model-configuration">
+<h2>Model Configuration<a class="headerlink" href="#model-configuration" title="Link to this heading">¶</a></h2>
+<p>Different algorithms use models for different purposes. For example, <a class="reference internal" href="../api/algorithms.html#rsl_rl.algorithms.ppo.PPO" title="rsl_rl.algorithms.ppo.PPO"><code class="xref py py-class docutils literal notranslate"><span class="pre">PPO</span></code></a> uses an actor
+and a critic, while <a class="reference internal" href="../api/algorithms.html#rsl_rl.algorithms.distillation.Distillation" title="rsl_rl.algorithms.distillation.Distillation"><code class="xref py py-class docutils literal notranslate"><span class="pre">Distillation</span></code></a> uses a student and a teacher. Even though
+their function might be different, they can all use the same underlying model classes. RSL-RL currently implements
+three different models: <a class="reference internal" href="../api/models.html#rsl_rl.models.mlp_model.MLPModel" title="rsl_rl.models.mlp_model.MLPModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">MLPModel</span></code></a>, <a class="reference internal" href="../api/models.html#rsl_rl.models.rnn_model.RNNModel" title="rsl_rl.models.rnn_model.RNNModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">RNNModel</span></code></a>, and
+<a class="reference internal" href="../api/models.html#rsl_rl.models.cnn_model.CNNModel" title="rsl_rl.models.cnn_model.CNNModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">CNNModel</span></code></a>, which are configured as follows.</p>
+<section id="mlpmodel">
+<h3>MLPModel<a class="headerlink" href="#mlpmodel" title="Link to this heading">¶</a></h3>
+<div class="table-wrapper no-wrap-type-column docutils container">
+<table class="no-wrap-type-column docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">class_name</span></code></p></td>
+<td><p>str</p></td>
+<td><p>required</p></td>
+<td><p>Model class name. Valid values: <code class="docutils literal notranslate"><span class="pre">&quot;MLPModel&quot;</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hidden_dims</span></code></p></td>
+<td><p>tuple[int] | list[int]</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[256,</span> <span class="pre">256,</span> <span class="pre">256]</span></code></p></td>
+<td><p>Hidden dimensions of the MLP.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">activation</span></code></p></td>
+<td><p>str</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;elu&quot;</span></code></p></td>
+<td><p>Activation function of the MLP. Valid values: see <a class="reference internal" href="../api/utils.html#rsl_rl.utils.utils.resolve_nn_activation" title="rsl_rl.utils.utils.resolve_nn_activation"><code class="xref py py-func docutils literal notranslate"><span class="pre">resolve_nn_activation()</span></code></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">obs_normalization</span></code></p></td>
+<td><p>bool</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+<td><p>Whether to normalize the observations before passing them to the MLP.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">distribution_cfg</span></code></p></td>
+<td><p>dict | None</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+<td><p>Optional output distribution configuration. If provided, the model can output stochastic values sampled from
+the specified distribution.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="rnnmodel">
+<h3>RNNModel<a class="headerlink" href="#rnnmodel" title="Link to this heading">¶</a></h3>
+<p>The <a class="reference internal" href="../api/models.html#rsl_rl.models.rnn_model.RNNModel" title="rsl_rl.models.rnn_model.RNNModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">RNNModel</span></code></a> inherits from the <a class="reference internal" href="../api/models.html#rsl_rl.models.mlp_model.MLPModel" title="rsl_rl.models.mlp_model.MLPModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">MLPModel</span></code></a> and thus
+shares the same configuration keys as the <a class="reference internal" href="../api/models.html#rsl_rl.models.mlp_model.MLPModel" title="rsl_rl.models.mlp_model.MLPModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">MLPModel</span></code></a>, with the addition of the following
+keys:</p>
+<div class="table-wrapper no-wrap-type-column docutils container">
+<table class="no-wrap-type-column docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">class_name</span></code></p></td>
+<td><p>str</p></td>
+<td><p>required</p></td>
+<td><p>Model class name. Valid values: <code class="docutils literal notranslate"><span class="pre">&quot;RNNModel&quot;</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rnn_type</span></code></p></td>
+<td><p>str</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;lstm&quot;</span></code></p></td>
+<td><p>Type of RNN network. Valid values: <code class="docutils literal notranslate"><span class="pre">&quot;lstm&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;gru&quot;</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rnn_hidden_dim</span></code></p></td>
+<td><p>int</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">256</span></code></p></td>
+<td><p>Hidden dimension of the RNN.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rnn_num_layers</span></code></p></td>
+<td><p>int</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>Number of RNN layers.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="cnnmodel">
+<h3>CNNModel<a class="headerlink" href="#cnnmodel" title="Link to this heading">¶</a></h3>
+<p>The <a class="reference internal" href="../api/models.html#rsl_rl.models.cnn_model.CNNModel" title="rsl_rl.models.cnn_model.CNNModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">CNNModel</span></code></a> inherits from the <a class="reference internal" href="../api/models.html#rsl_rl.models.mlp_model.MLPModel" title="rsl_rl.models.mlp_model.MLPModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">MLPModel</span></code></a> and thus
+shares the same configuration keys as the <a class="reference internal" href="../api/models.html#rsl_rl.models.mlp_model.MLPModel" title="rsl_rl.models.mlp_model.MLPModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">MLPModel</span></code></a>, with the addition of the following
+keys:</p>
+<div class="table-wrapper no-wrap-type-column docutils container">
+<table class="no-wrap-type-column docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">class_name</span></code></p></td>
+<td><p>str</p></td>
+<td><p>required</p></td>
+<td><p>Model class name. Valid values: <code class="docutils literal notranslate"><span class="pre">&quot;CNNModel&quot;</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cnn_cfg</span></code></p></td>
+<td><p>dict[str, dict] | dict[str, Any] | None</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+<td><p>Configuration of the CNN encoder(s).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Instead of directly passing the CNN parameters to the <a class="reference internal" href="../api/models.html#rsl_rl.models.cnn_model.CNNModel" title="rsl_rl.models.cnn_model.CNNModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">CNNModel</span></code></a> (similar to how it is
+done for the <a class="reference internal" href="../api/models.html#rsl_rl.models.mlp_model.MLPModel" title="rsl_rl.models.mlp_model.MLPModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">MLPModel</span></code></a> and <a class="reference internal" href="../api/models.html#rsl_rl.models.rnn_model.RNNModel" title="rsl_rl.models.rnn_model.RNNModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">RNNModel</span></code></a>), the parameters
+are grouped in a dictionary <code class="docutils literal notranslate"><span class="pre">cnn_cfg</span></code>. This enables passing multiple CNN configurations for different observations
+(e.g. different cameras). If only one CNN is needed or all CNNs have the same configuration, the dictionary may directly
+contain the CNN parameters. If multiple CNNs with different configurations are needed, the dictionary must contain a
+dictionary for each CNN configuration, with the key being the observation the configuration applies to. The
+<a class="reference internal" href="../api/models.html#rsl_rl.models.cnn_model.CNNModel" title="rsl_rl.models.cnn_model.CNNModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">CNNModel</span></code></a> will then create CNNs based on the provided configurations. A CNN
+configuration includes the following parameters:</p>
+<div class="table-wrapper no-wrap-type-column docutils container">
+<table class="no-wrap-type-column docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">output_channels</span></code></p></td>
+<td><p>tuple[int] | list[int]</p></td>
+<td><p>required</p></td>
+<td><p>Output channels for each convolutional layer.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">kernel_size</span></code></p></td>
+<td><p>int | tuple[int] | list[int]</p></td>
+<td><p>required</p></td>
+<td><p>Kernel size for each convolutional layer or a single kernel size for all layers.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">stride</span></code></p></td>
+<td><p>int | tuple[int] | list[int]</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>Stride for each convolutional layer or a single stride for all layers.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">dilation</span></code></p></td>
+<td><p>int | tuple[int] | list[int]</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>Dilation for each convolutional layer or a single dilation for all layers.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">padding</span></code></p></td>
+<td><p>str</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;none&quot;</span></code></p></td>
+<td><p>Padding type to use. Valid values: <code class="docutils literal notranslate"><span class="pre">&quot;none&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;zeros&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;reflect&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;replicate&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;circular&quot;</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">norm</span></code></p></td>
+<td><p>str | tuple[str] | list[str]</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;none&quot;</span></code></p></td>
+<td><p>Normalization type for each convolutional layer or a single normalization type for all layers. Valid values:
+<code class="docutils literal notranslate"><span class="pre">&quot;none&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;batch&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;layer&quot;</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">activation</span></code></p></td>
+<td><p>str</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;elu&quot;</span></code></p></td>
+<td><p>Activation function to use. Valid values: see <a class="reference internal" href="../api/utils.html#rsl_rl.utils.utils.resolve_nn_activation" title="rsl_rl.utils.utils.resolve_nn_activation"><code class="xref py py-func docutils literal notranslate"><span class="pre">resolve_nn_activation()</span></code></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">max_pool</span></code></p></td>
+<td><p>bool | tuple[bool] | list[bool]</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+<td><p>Whether to apply max pooling after each convolutional layer or a single boolean for all layers.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">global_pool</span></code></p></td>
+<td><p>str</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;none&quot;</span></code></p></td>
+<td><p>Global pooling type to apply at the end. Valid values: <code class="docutils literal notranslate"><span class="pre">&quot;none&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;max&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;avg&quot;</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">flatten</span></code></p></td>
+<td><p>bool</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
+<td><p>Whether to flatten the output tensor.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="distribution-configuration">
+<h2>Distribution Configuration<a class="headerlink" href="#distribution-configuration" title="Link to this heading">¶</a></h2>
+<p>RSL-RL implements two distributions that enable stochastic model outputs: A
+<a class="reference internal" href="../api/modules.html#rsl_rl.modules.distribution.GaussianDistribution" title="rsl_rl.modules.distribution.GaussianDistribution"><code class="xref py py-class docutils literal notranslate"><span class="pre">GaussianDistribution</span></code></a> and a
+<a class="reference internal" href="../api/modules.html#rsl_rl.modules.distribution.HeteroscedasticGaussianDistribution" title="rsl_rl.modules.distribution.HeteroscedasticGaussianDistribution"><code class="xref py py-class docutils literal notranslate"><span class="pre">HeteroscedasticGaussianDistribution</span></code></a> with state-dependent standard deviation, which
+may be configured as follows.</p>
+<section id="gaussiandistribution">
+<h3>GaussianDistribution<a class="headerlink" href="#gaussiandistribution" title="Link to this heading">¶</a></h3>
+<div class="table-wrapper no-wrap-type-column docutils container">
+<table class="no-wrap-type-column docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">class_name</span></code></p></td>
+<td><p>str</p></td>
+<td><p>required</p></td>
+<td><p>Distribution class name. Valid values: <code class="docutils literal notranslate"><span class="pre">&quot;GaussianDistribution&quot;</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">init_std</span></code></p></td>
+<td><p>float</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1.0</span></code></p></td>
+<td><p>Initial standard deviation for all dimensions.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">std_range</span></code></p></td>
+<td><p>tuple[float, float]</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(1e-6,</span> <span class="pre">1e6)</span></code></p></td>
+<td><p>Minimum and maximum allowed values for the standard deviation for numerical stability.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">std_type</span></code></p></td>
+<td><p>str</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;scalar&quot;</span></code></p></td>
+<td><p>Whether the standard deviation is stored directly or in log-space. Valid values: <code class="docutils literal notranslate"><span class="pre">&quot;scalar&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;log&quot;</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">learn_std</span></code></p></td>
+<td><p>bool</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
+<td><p>Whether the standard deviation is learnable or fixed.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="heteroscedasticgaussiandistribution">
+<h3>HeteroscedasticGaussianDistribution<a class="headerlink" href="#heteroscedasticgaussiandistribution" title="Link to this heading">¶</a></h3>
+<div class="table-wrapper no-wrap-type-column docutils container">
+<table class="no-wrap-type-column docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">class_name</span></code></p></td>
+<td><p>str</p></td>
+<td><p>required</p></td>
+<td><p>Distribution class name. Valid values: <code class="docutils literal notranslate"><span class="pre">&quot;HeteroscedasticGaussianDistribution&quot;</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">init_std</span></code></p></td>
+<td><p>float</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1.0</span></code></p></td>
+<td><p>Initial standard deviation (used to initialize the std head bias).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">std_range</span></code></p></td>
+<td><p>tuple[float, float]</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(1e-6,</span> <span class="pre">1e6)</span></code></p></td>
+<td><p>Minimum and maximum allowed values for the standard deviation for numerical stability.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">std_type</span></code></p></td>
+<td><p>str</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;scalar&quot;</span></code></p></td>
+<td><p>Whether the standard deviation is stored directly or in log-space. Valid values: <code class="docutils literal notranslate"><span class="pre">&quot;scalar&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;log&quot;</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="extension-configuration">
+<h2>Extension Configuration<a class="headerlink" href="#extension-configuration" title="Link to this heading">¶</a></h2>
+<p>RSL-RL currently features two extensions for <a class="reference internal" href="../api/algorithms.html#rsl_rl.algorithms.ppo.PPO" title="rsl_rl.algorithms.ppo.PPO"><code class="xref py py-class docutils literal notranslate"><span class="pre">PPO</span></code></a>. Those are
+<a class="reference internal" href="../api/extensions.html#rsl_rl.extensions.rnd.RandomNetworkDistillation" title="rsl_rl.extensions.rnd.RandomNetworkDistillation"><code class="xref py py-class docutils literal notranslate"><span class="pre">RandomNetworkDistillation</span></code></a> and <code class="xref py py-class docutils literal notranslate"><span class="pre">Symmetry</span></code>, which may be configured as follows.</p>
+<section id="random-network-distillation">
+<h3>Random Network Distillation<a class="headerlink" href="#random-network-distillation" title="Link to this heading">¶</a></h3>
+<div class="table-wrapper no-wrap-type-column docutils container">
+<table class="no-wrap-type-column docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">num_outputs</span></code></p></td>
+<td><p>int</p></td>
+<td><p>required</p></td>
+<td><p>Number of outputs of the RND networks.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">predictor_hidden_dims</span></code></p></td>
+<td><p>tuple[int] | list[int]</p></td>
+<td><p>required</p></td>
+<td><p>Hidden dimensions of the RND predictor network.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">target_hidden_dims</span></code></p></td>
+<td><p>tuple[int] | list[int]</p></td>
+<td><p>required</p></td>
+<td><p>Hidden dimensions of the RND target network.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">activation</span></code></p></td>
+<td><p>str</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;elu&quot;</span></code></p></td>
+<td><p>Activation function for the RND networks. Valid values: see <a class="reference internal" href="../api/utils.html#rsl_rl.utils.utils.resolve_nn_activation" title="rsl_rl.utils.utils.resolve_nn_activation"><code class="xref py py-func docutils literal notranslate"><span class="pre">resolve_nn_activation()</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">state_normalization</span></code></p></td>
+<td><p>bool</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+<td><p>Whether to normalize the RND state.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">reward_normalization</span></code></p></td>
+<td><p>bool</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+<td><p>Whether to normalize the RND reward.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">weight</span></code></p></td>
+<td><p>float</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></td>
+<td><p>Initial weight of the RND reward.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">weight_schedule</span></code></p></td>
+<td><p>dict | None</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+<td><p>Weight schedule for the RND reward. Valid values: see <a class="reference internal" href="../api/extensions.html#rsl_rl.extensions.rnd.RandomNetworkDistillation" title="rsl_rl.extensions.rnd.RandomNetworkDistillation"><code class="xref py py-class docutils literal notranslate"><span class="pre">RandomNetworkDistillation</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">learning_rate</span></code></p></td>
+<td><p>float</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.001</span></code></p></td>
+<td><p>Learning rate for the RND optimizer.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="symmetry-augmentation">
+<h3>Symmetry Augmentation<a class="headerlink" href="#symmetry-augmentation" title="Link to this heading">¶</a></h3>
+<div class="table-wrapper no-wrap-type-column docutils container">
+<table class="no-wrap-type-column docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">use_data_augmentation</span></code></p></td>
+<td><p>bool</p></td>
+<td><p>required</p></td>
+<td><p>Whether to add symmetric trajectories to the batch.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">data_augmentation_func</span></code></p></td>
+<td><p>str | callable | None</p></td>
+<td><p>required</p></td>
+<td><p>Function to generate symmetric trajectories. Resolved using <a class="reference internal" href="../api/utils.html#rsl_rl.utils.utils.resolve_callable" title="rsl_rl.utils.utils.resolve_callable"><code class="xref py py-func docutils literal notranslate"><span class="pre">resolve_callable()</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">use_mirror_loss</span></code></p></td>
+<td><p>bool</p></td>
+<td><p>required</p></td>
+<td><p>Whether to add a symmetry loss term to the loss function.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mirror_loss_coeff</span></code></p></td>
+<td><p>float</p></td>
+<td><p>required</p></td>
+<td><p>Coefficient for the symmetry loss.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="example-configuration">
+<span id="id2"></span><h2>Example Configuration<a class="headerlink" href="#example-configuration" title="Link to this heading">¶</a></h2>
+<p>While the previous sections make it seem rather complicated to set up a configuration, the required configuration to run
+a training with, e.g., <a class="reference internal" href="../api/algorithms.html#rsl_rl.algorithms.ppo.PPO" title="rsl_rl.algorithms.ppo.PPO"><code class="xref py py-class docutils literal notranslate"><span class="pre">PPO</span></code></a> is actually quite simple. The following configuration is
+already sufficient:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">runner</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">num_steps_per_env</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">24</span>
+<span class="w">  </span><span class="nt">obs_groups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="s">&quot;actor&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;policy&quot;</span><span class="p p-Indicator">],</span><span class="w"> </span><span class="s">&quot;critic&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;policy&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;privileged&quot;</span><span class="p p-Indicator">]}</span>
+<span class="w">  </span><span class="nt">save_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span>
+<span class="w">  </span><span class="nt">algorithm</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">class_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PPO</span>
+<span class="w">  </span><span class="nt">actor</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">class_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MLPModel</span>
+<span class="w">    </span><span class="nt">distribution_cfg</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">class_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GaussianDistribution</span>
+<span class="w">  </span><span class="nt">critic</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">class_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MLPModel</span>
+</pre></div>
+</div>
+</section>
+<section id="observation-configuration">
+<span id="id3"></span><h2>Observation Configuration<a class="headerlink" href="#observation-configuration" title="Link to this heading">¶</a></h2>
+<p>RSL-RL expects the <a class="reference internal" href="../api/env.html#rsl_rl.env.vec_env.VecEnv.step" title="rsl_rl.env.vec_env.VecEnv.step"><code class="xref py py-func docutils literal notranslate"><span class="pre">step()</span></code></a> method of the environment to return observations as a
+<code class="xref py py-class docutils literal notranslate"><span class="pre">TensorDict</span></code>. This dictionary contains one or more tensors with observation data, referred
+to as <em>observation groups</em> in RSL-RL and Isaac Lab.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">obs_groups</span></code> dictionary of the <a class="reference internal" href="#runner-configuration"><span class="std std-ref">runner configuration</span></a> defines which observation groups
+are used for which purpose. Each purpose defines its own <em>observation set</em>, which is simply a list of observation
+groups. In other words, the <code class="docutils literal notranslate"><span class="pre">obs_groups</span></code> dictionary maps from <em>observation sets</em> to lists of <em>observation groups</em>.</p>
+<p>As the above definition is quite abstract, let’s consider a simple example for a
+<a class="reference internal" href="../api/algorithms.html#rsl_rl.algorithms.ppo.PPO" title="rsl_rl.algorithms.ppo.PPO"><code class="xref py py-class docutils literal notranslate"><span class="pre">PPO</span></code></a> training. The <a class="reference internal" href="../api/env.html#rsl_rl.env.vec_env.VecEnv.step" title="rsl_rl.env.vec_env.VecEnv.step"><code class="xref py py-func docutils literal notranslate"><span class="pre">step()</span></code></a> method of our environment
+might return the following observations:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">obs</span> <span class="o">=</span> <span class="n">TensorDict</span><span class="p">(</span>
+  <span class="p">{</span>
+    <span class="s2">&quot;policy&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">]),</span> <span class="c1"># available during robot deployment</span>
+    <span class="s2">&quot;privileged&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">]),</span> <span class="c1"># only available during training</span>
+  <span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Let’s assume the “policy” observation group is meant for both actor and critic. The “privileged” observation group is
+only available during training and therefore cannot be used by the actor model, but may still improve learning
+performance when passed to the critic. Thus, the <code class="docutils literal notranslate"><span class="pre">obs_groups</span></code> dictionary would be configured as follows:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">obs_groups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="s">&quot;actor&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;policy&quot;</span><span class="p p-Indicator">],</span><span class="w"> </span><span class="s">&quot;critic&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;policy&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;privileged&quot;</span><span class="p p-Indicator">]}</span>
+</pre></div>
+</div>
+<p>With this configuration, the actor would receive the “policy” tensor as input, while the critic would receive both the
+“policy” and the “privileged” tensor as input.</p>
+<p>Depending on the algorithm and extensions used, RSL-RL expects different observation sets to be present in the
+<code class="docutils literal notranslate"><span class="pre">obs_groups</span></code> dictionary. Currently, the following observation sets may be required, depending on the configuration:</p>
+<div class="table-wrapper no-wrap-type-column docutils container">
+<table class="no-wrap-type-column docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">actor</span></code></p></td>
+<td><p>Observations used as input to the actor model.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">critic</span></code></p></td>
+<td><p>Observations used as input to the critic model.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">student</span></code></p></td>
+<td><p>Observations used as input to the student model.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">teacher</span></code></p></td>
+<td><p>Observations used as input to the teacher model.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">rnd_state</span></code></p></td>
+<td><p>Observations used as input to the RND extension.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Incomplete or incorrect configurations are handled in <a class="reference internal" href="../api/utils.html#rsl_rl.utils.utils.resolve_obs_groups" title="rsl_rl.utils.utils.resolve_obs_groups"><code class="xref py py-func docutils literal notranslate"><span class="pre">resolve_obs_groups()</span></code></a>, which provides
+detailed information on how errors are resolved.</p>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="contribution.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Contribution</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="installation.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Installation</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2021-2026, ETH Zurich and NVIDIA CORPORATION
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Configuration</a><ul>
+<li><a class="reference internal" href="#runner-configuration">Runner Configuration</a></li>
+<li><a class="reference internal" href="#algorithm-configuration">Algorithm Configuration</a><ul>
+<li><a class="reference internal" href="#ppo">PPO</a></li>
+<li><a class="reference internal" href="#distillation">Distillation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#model-configuration">Model Configuration</a><ul>
+<li><a class="reference internal" href="#mlpmodel">MLPModel</a></li>
+<li><a class="reference internal" href="#rnnmodel">RNNModel</a></li>
+<li><a class="reference internal" href="#cnnmodel">CNNModel</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#distribution-configuration">Distribution Configuration</a><ul>
+<li><a class="reference internal" href="#gaussiandistribution">GaussianDistribution</a></li>
+<li><a class="reference internal" href="#heteroscedasticgaussiandistribution">HeteroscedasticGaussianDistribution</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#extension-configuration">Extension Configuration</a><ul>
+<li><a class="reference internal" href="#random-network-distillation">Random Network Distillation</a></li>
+<li><a class="reference internal" href="#symmetry-augmentation">Symmetry Augmentation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#example-configuration">Example Configuration</a></li>
+<li><a class="reference internal" href="#observation-configuration">Observation Configuration</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
+    </body>
+</html>

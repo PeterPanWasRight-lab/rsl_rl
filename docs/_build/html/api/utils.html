@@ -1,0 +1,965 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="prev" title="Storage" href="storage.html">
+        <link rel="prefetch" href="../_static/rsl_rl_logo_light.svg" as="image">
+        <link rel="prefetch" href="../_static/rsl_rl_logo_dark.svg" as="image">
+
+    <!-- Generated with Sphinx 8.1.3 and Furo 2025.12.19 -->
+        <title>Utils - RSL-RL</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=2a5a7561" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  --color-highlight-on-target: rgba(12, 121, 190, 0.5);
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-highlight-on-target: rgba(12, 121, 190, 0.5);
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-highlight-on-target: rgba(12, 121, 190, 0.5);
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">RSL-RL</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../_static/rsl_rl_logo_light.svg" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../_static/rsl_rl_logo_dark.svg" alt="Dark Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../guide/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/contribution.html">Contribution</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="algorithms.html">Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="env.html">Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extensions.html">Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="runners.html">Runners</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage.html">Storage</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Utils</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Project Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/leggedrobotics/rsl_rl">GitHub Repository</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pypi.org/project/rsl-rl-lib/">PyPI Package</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../_sources/api/utils.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="utils">
+<h1>Utils<a class="headerlink" href="#utils" title="Link to this heading">¶</a></h1>
+<section id="module-rsl_rl.utils.logger">
+<span id="logger"></span><h2>Logger<a class="headerlink" href="#module-rsl_rl.utils.logger" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="rsl_rl.utils.logger.Logger">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rsl_rl.utils.logger.</span></span><span class="sig-name descname"><span class="pre">Logger</span></span><a class="reference internal" href="../_modules/rsl_rl/utils/logger.html#Logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.utils.logger.Logger" title="Link to this definition">¶</a></dt>
+<dd><p>Logger to save the learning metrics to different logging services.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.utils.logger.Logger.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_envs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_distributed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gpu_world_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gpu_global_rank</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/utils/logger.html#Logger.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.utils.logger.Logger.__init__" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize buffers and logging state for a training run.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>log_dir</strong> (<em>str</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>cfg</strong> (<em>dict</em>)</p></li>
+<li><p><strong>env_cfg</strong> (<em>dict</em><em> | </em><em>object</em>)</p></li>
+<li><p><strong>num_envs</strong> (<em>int</em>)</p></li>
+<li><p><strong>is_distributed</strong> (<em>bool</em>)</p></li>
+<li><p><strong>gpu_world_size</strong> (<em>int</em>)</p></li>
+<li><p><strong>gpu_global_rank</strong> (<em>int</em>)</p></li>
+<li><p><strong>device</strong> (<em>str</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.utils.logger.Logger.init_logging_writer">
+<span class="sig-name descname"><span class="pre">init_logging_writer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/utils/logger.html#Logger.init_logging_writer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.utils.logger.Logger.init_logging_writer" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize the logging writer, which can be either Tensorboard, W&amp;B or Neptune and save the code state.</p>
+<p>If the writer is either W&amp;B or Neptune, the configuration and code state are uploaded as well.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.utils.logger.Logger.process_env_step">
+<span class="sig-name descname"><span class="pre">process_env_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rewards</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dones</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extras</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intrinsic_rewards</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/utils/logger.html#Logger.process_env_step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.utils.logger.Logger.process_env_step" title="Link to this definition">¶</a></dt>
+<dd><p>Add metrics from the environment step to the buffers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rewards</strong> (<em>Tensor</em>)</p></li>
+<li><p><strong>dones</strong> (<em>Tensor</em>)</p></li>
+<li><p><strong>extras</strong> (<em>dict</em>)</p></li>
+<li><p><strong>intrinsic_rewards</strong> (<em>Tensor</em><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.utils.logger.Logger.log">
+<span class="sig-name descname"><span class="pre">log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">it</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_it</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_it</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collect_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learn_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss_dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learning_rate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">action_std</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rnd_weight</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">print_minimal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">80</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">40</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/utils/logger.html#Logger.log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.utils.logger.Logger.log" title="Link to this definition">¶</a></dt>
+<dd><p>Log the training metrics to the logging service and print them to the console.</p>
+<p>If videos are available, they are uploaded to the logging service (W&amp;B) as well.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>it</strong> (<em>int</em>)</p></li>
+<li><p><strong>start_it</strong> (<em>int</em>)</p></li>
+<li><p><strong>total_it</strong> (<em>int</em>)</p></li>
+<li><p><strong>collect_time</strong> (<em>float</em>)</p></li>
+<li><p><strong>learn_time</strong> (<em>float</em>)</p></li>
+<li><p><strong>loss_dict</strong> (<em>dict</em>)</p></li>
+<li><p><strong>learning_rate</strong> (<em>float</em>)</p></li>
+<li><p><strong>action_std</strong> (<em>Tensor</em>)</p></li>
+<li><p><strong>rnd_weight</strong> (<em>float</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>print_minimal</strong> (<em>bool</em>)</p></li>
+<li><p><strong>width</strong> (<em>int</em>)</p></li>
+<li><p><strong>pad</strong> (<em>int</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.utils.logger.Logger.save_model">
+<span class="sig-name descname"><span class="pre">save_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">it</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/utils/logger.html#Logger.save_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.utils.logger.Logger.save_model" title="Link to this definition">¶</a></dt>
+<dd><p>Save the model to external logging services if specified.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>)</p></li>
+<li><p><strong>it</strong> (<em>int</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.utils.logger.Logger.stop_logging_writer">
+<span class="sig-name descname"><span class="pre">stop_logging_writer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/utils/logger.html#Logger.stop_logging_writer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.utils.logger.Logger.stop_logging_writer" title="Link to this definition">¶</a></dt>
+<dd><p>Stop the logging writer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="id1">
+<h2>Utils<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
+<dl class="py function" id="module-rsl_rl.utils.utils">
+<dt class="sig sig-object py" id="rsl_rl.utils.utils.get_param">
+<span class="sig-prename descclassname"><span class="pre">rsl_rl.utils.utils.</span></span><span class="sig-name descname"><span class="pre">get_param</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">param</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/utils/utils.html#get_param"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.utils.utils.get_param" title="Link to this definition">¶</a></dt>
+<dd><p>Get a parameter for the given index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>param</strong> (<em>Any</em>) – Parameter or list/tuple of parameters.</p></li>
+<li><p><strong>idx</strong> (<em>int</em>) – Index to get the parameter for.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>Any</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rsl_rl.utils.utils.resolve_nn_activation">
+<span class="sig-prename descclassname"><span class="pre">rsl_rl.utils.utils.</span></span><span class="sig-name descname"><span class="pre">resolve_nn_activation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">act_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/utils/utils.html#resolve_nn_activation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.utils.utils.resolve_nn_activation" title="Link to this definition">¶</a></dt>
+<dd><p>Resolve the activation function from the name.</p>
+<p>Valid activation function names are: <code class="docutils literal notranslate"><span class="pre">&quot;elu&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;selu&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;relu&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;crelu&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;lrelu&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;tanh&quot;</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&quot;sigmoid&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;softplus&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;gelu&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;swish&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;mish&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;identity&quot;</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>act_name</strong> (<em>str</em>) – Name of the activation function.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The activation function.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – If the activation function is not found.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>torch.nn.Module</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rsl_rl.utils.utils.resolve_optimizer">
+<span class="sig-prename descclassname"><span class="pre">rsl_rl.utils.utils.</span></span><span class="sig-name descname"><span class="pre">resolve_optimizer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">optimizer_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/utils/utils.html#resolve_optimizer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.utils.utils.resolve_optimizer" title="Link to this definition">¶</a></dt>
+<dd><p>Resolve the optimizer from the name.</p>
+<p>Valid optimizer names are: <code class="docutils literal notranslate"><span class="pre">&quot;adam&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;adamw&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;sgd&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;rmsprop&quot;</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>optimizer_name</strong> (<em>str</em>) – Name of the optimizer.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The optimizer.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – If the optimizer is not found.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>torch.optim.Optimizer</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rsl_rl.utils.utils.resolve_callable">
+<span class="sig-prename descclassname"><span class="pre">rsl_rl.utils.utils.</span></span><span class="sig-name descname"><span class="pre">resolve_callable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callable_or_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/utils/utils.html#resolve_callable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.utils.utils.resolve_callable" title="Link to this definition">¶</a></dt>
+<dd><p>Resolve a callable from a string, type, or return callable directly.</p>
+<p>This function supports resolving callables from a direct callable input or from a string in one of these formats:</p>
+<ul class="simple">
+<li><p>Direct callable: pass a type or function directly (for example, <code class="docutils literal notranslate"><span class="pre">MyClass</span></code> or <code class="docutils literal notranslate"><span class="pre">my_func</span></code>).</p></li>
+<li><p>Qualified name with colon: <code class="docutils literal notranslate"><span class="pre">&quot;module.path:Attr.Nested&quot;</span></code> (explicit, recommended).</p></li>
+<li><p>Qualified name with dot: <code class="docutils literal notranslate"><span class="pre">&quot;module.path.ClassName&quot;</span></code> (implicit).</p></li>
+<li><p>Simple name: for example <code class="docutils literal notranslate"><span class="pre">&quot;PPO&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;ActorCritic&quot;</span></code> (searched within <code class="docutils literal notranslate"><span class="pre">rsl_rl</span></code>).</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>callable_or_name</strong> (<em>type</em><em> | </em><em>Callable</em><em> | </em><em>str</em>) – A callable (type/function) or string name.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The resolved callable.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>TypeError</strong> – If input is neither a callable nor a string.</p></li>
+<li><p><strong>ImportError</strong> – If the module cannot be imported.</p></li>
+<li><p><strong>AttributeError</strong> – If the attribute cannot be found in the module.</p></li>
+<li><p><strong>ValueError</strong> – If a simple name cannot be found in rsl_rl packages.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>Callable</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rsl_rl.utils.utils.resolve_obs_groups">
+<span class="sig-prename descclassname"><span class="pre">rsl_rl.utils.utils.</span></span><span class="sig-name descname"><span class="pre">resolve_obs_groups</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs_groups</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default_sets</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/utils/utils.html#resolve_obs_groups"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.utils.utils.resolve_obs_groups" title="Link to this definition">¶</a></dt>
+<dd><p>Validate the observation configuration and resolve missing observation sets.</p>
+<p>The input is an observation dictionary <cite>obs</cite> containing observation groups and a configuration dictionary
+<cite>obs_groups</cite> where the keys are the observation sets and the values are lists of observation groups.</p>
+<p>The configuration dictionary could for example look like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;actor&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;group_1&quot;</span><span class="p">,</span> <span class="s2">&quot;group_2&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;critic&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;group_1&quot;</span><span class="p">,</span> <span class="s2">&quot;group_3&quot;</span><span class="p">],</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This means that the ‘actor’ observation set will contain the observations “group_1” and “group_2” and the ‘critic’
+observation set will contain the observations “group_1” and “group_3”. This function will check that all the
+observations in the ‘actor’ and ‘critic’ observation sets are present in the observation dictionary from the
+environment.</p>
+<p>Additionally, if one of the <cite>default_sets</cite>, e.g. “critic”, is not present in the configuration dictionary, this
+function will:</p>
+<ol class="arabic simple">
+<li><p>Check if a group with the same name exists in the observations and assign this group to the observation set.</p></li>
+<li><p>If 1. fails, it will assign the ‘policy’ observation group to the missing observation set.</p></li>
+<li><p>If 2. fails, an error is raised.</p></li>
+</ol>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obs</strong> (<em>tensordict.TensorDict</em>) – Observations from the environment in the form of a dictionary.</p></li>
+<li><p><strong>obs_groups</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em>) – Dictionary mapping observation sets to lists of observation groups.</p></li>
+<li><p><strong>default_sets</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – Default observation set names used by the algorithm. If not provided in <code class="docutils literal notranslate"><span class="pre">obs_groups</span></code>, a
+default behavior gets triggered.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The resolved observation groups.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ValueError</strong> – If any observation set is an empty list.</p></li>
+<li><p><strong>ValueError</strong> – If any observation set contains an observation term that is not present in the observations.</p></li>
+<li><p><strong>ValueError</strong> – If a default observation set cannot be resolved according to the rules above.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict[str, list[str]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rsl_rl.utils.utils.check_nan">
+<span class="sig-prename descclassname"><span class="pre">rsl_rl.utils.utils.</span></span><span class="sig-name descname"><span class="pre">check_nan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rewards</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dones</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/utils/utils.html#check_nan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.utils.utils.check_nan" title="Link to this definition">¶</a></dt>
+<dd><p>Raise <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> if any environment output contains NaN.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obs</strong> (<em>tensordict.TensorDict</em>)</p></li>
+<li><p><strong>rewards</strong> (<em>torch.Tensor</em>)</p></li>
+<li><p><strong>dones</strong> (<em>torch.Tensor</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rsl_rl.utils.utils.compile_model">
+<span class="sig-prename descclassname"><span class="pre">rsl_rl.utils.utils.</span></span><span class="sig-name descname"><span class="pre">compile_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/utils/utils.html#compile_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.utils.utils.compile_model" title="Link to this definition">¶</a></dt>
+<dd><p>Wrap a model with <code class="xref py py-func docutils literal notranslate"><span class="pre">torch.compile()</span></code>, validating the compile mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>torch.nn.Module</em>) – The model to compile.</p></li>
+<li><p><strong>mode</strong> (<em>str</em><em> | </em><em>None</em>) – The <code class="xref py py-func docutils literal notranslate"><span class="pre">torch.compile()</span></code> mode. CUDA-graph modes (<code class="docutils literal notranslate"><span class="pre">&quot;reduce-overhead&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;max-autotune&quot;</span></code>) are rejected</p></li>
+<li><p><strong>replay</strong> (<em>because they are incompatible with the multi-model forward patterns used by the algorithms</em><em> (</em><em>graph</em>)</p></li>
+<li><p><strong>instead.</strong> (<em>overwrites the previous call's output buffer</em><em>)</em><em>. Use &quot;default&quot;</em><em> or </em><em>&quot;max-autotune-no-cudagraphs&quot;</em>)</p></li>
+<li><p><strong>None</strong> (<em>Defaults to</em>)</p></li>
+<li><p><strong>disabled.</strong> (<em>in which case compilation is</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The compiled model, or the original model if <code class="docutils literal notranslate"><span class="pre">mode</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – If <code class="docutils literal notranslate"><span class="pre">mode</span></code> is one of the unsupported CUDA-graph modes.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>torch.nn.Module</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rsl_rl.utils.utils.split_and_pad_trajectories">
+<span class="sig-prename descclassname"><span class="pre">rsl_rl.utils.utils.</span></span><span class="sig-name descname"><span class="pre">split_and_pad_trajectories</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dones</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/utils/utils.html#split_and_pad_trajectories"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.utils.utils.split_and_pad_trajectories" title="Link to this definition">¶</a></dt>
+<dd><p>Split trajectories at done indices.</p>
+<p>Split trajectories, concatenate them and pad with zeros up to the length of the longest trajectory. Return masks
+corresponding to valid parts of the trajectories.</p>
+<dl class="simple">
+<dt>Example (transposed for readability):</dt><dd><dl class="simple">
+<dt>Input: [[a1, a2, a3, a4 | a5, a6],</dt><dd><p>[b1, b2 | b3, b4, b5 | b6]]</p>
+</dd>
+<dt>Output:[[a1, a2, a3, a4], | [[True, True, True, True],</dt><dd><p>[a5, a6, 0, 0],   |  [True, True, False, False],
+[b1, b2, 0, 0],   |  [True, True, False, False],
+[b3, b4, b5, 0],  |  [True, True, True, False],
+[b6, 0, 0, 0]]    |  [True, False, False, False]]</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>Assumes that the input has the following order of dimensions: [time, number of envs, additional dimensions]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tensor</strong> (<em>torch.Tensor</em><em> | </em><em>TensorDict</em>)</p></li>
+<li><p><strong>dones</strong> (<em>torch.Tensor</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple[torch.Tensor | TensorDict, torch.Tensor]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rsl_rl.utils.utils.unpad_trajectories">
+<span class="sig-prename descclassname"><span class="pre">rsl_rl.utils.utils.</span></span><span class="sig-name descname"><span class="pre">unpad_trajectories</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trajectories</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">masks</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/utils/utils.html#unpad_trajectories"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.utils.utils.unpad_trajectories" title="Link to this definition">¶</a></dt>
+<dd><p>Do the inverse operation of <cite>split_and_pad_trajectories()</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>trajectories</strong> (<em>torch.Tensor</em><em> | </em><em>TensorDict</em>)</p></li>
+<li><p><strong>masks</strong> (<em>torch.Tensor</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>torch.Tensor | TensorDict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-rsl_rl.utils.wandb_utils">
+<span id="wandb-utils"></span><h2>Wandb Utils<a class="headerlink" href="#module-rsl_rl.utils.wandb_utils" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="rsl_rl.utils.wandb_utils.WandbSummaryWriter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rsl_rl.utils.wandb_utils.</span></span><span class="sig-name descname"><span class="pre">WandbSummaryWriter</span></span><a class="reference internal" href="../_modules/rsl_rl/utils/wandb_utils.html#WandbSummaryWriter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.utils.wandb_utils.WandbSummaryWriter" title="Link to this definition">¶</a></dt>
+<dd><p>Summary writer for W&amp;B.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.utils.wandb_utils.WandbSummaryWriter.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flush_secs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cfg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/utils/wandb_utils.html#WandbSummaryWriter.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.utils.wandb_utils.WandbSummaryWriter.__init__" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize a W&amp;B run for logging.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>log_dir</strong> (<em>str</em>)</p></li>
+<li><p><strong>flush_secs</strong> (<em>int</em>)</p></li>
+<li><p><strong>cfg</strong> (<em>dict</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.utils.wandb_utils.WandbSummaryWriter.store_config">
+<span class="sig-name descname"><span class="pre">store_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_cfg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/utils/wandb_utils.html#WandbSummaryWriter.store_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.utils.wandb_utils.WandbSummaryWriter.store_config" title="Link to this definition">¶</a></dt>
+<dd><p>Upload environment and training configuration to W&amp;B.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>env_cfg</strong> (<em>dict</em><em> | </em><em>object</em>)</p></li>
+<li><p><strong>train_cfg</strong> (<em>dict</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.utils.wandb_utils.WandbSummaryWriter.add_scalar">
+<span class="sig-name descname"><span class="pre">add_scalar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scalar_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">global_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">walltime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/utils/wandb_utils.html#WandbSummaryWriter.add_scalar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.utils.wandb_utils.WandbSummaryWriter.add_scalar" title="Link to this definition">¶</a></dt>
+<dd><p>Log a scalar to both TensorBoard and W&amp;B.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tag</strong> (<em>str</em>)</p></li>
+<li><p><strong>scalar_value</strong> (<em>float</em>)</p></li>
+<li><p><strong>global_step</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>walltime</strong> (<em>float</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>new_style</strong> (<em>bool</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.utils.wandb_utils.WandbSummaryWriter.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/utils/wandb_utils.html#WandbSummaryWriter.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.utils.wandb_utils.WandbSummaryWriter.stop" title="Link to this definition">¶</a></dt>
+<dd><p>Finish the active W&amp;B run.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.utils.wandb_utils.WandbSummaryWriter.save_model">
+<span class="sig-name descname"><span class="pre">save_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">it</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/utils/wandb_utils.html#WandbSummaryWriter.save_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.utils.wandb_utils.WandbSummaryWriter.save_model" title="Link to this definition">¶</a></dt>
+<dd><p>Upload a model checkpoint artifact to W&amp;B.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model_path</strong> (<em>str</em>)</p></li>
+<li><p><strong>it</strong> (<em>int</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.utils.wandb_utils.WandbSummaryWriter.save_file">
+<span class="sig-name descname"><span class="pre">save_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/utils/wandb_utils.html#WandbSummaryWriter.save_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.utils.wandb_utils.WandbSummaryWriter.save_file" title="Link to this definition">¶</a></dt>
+<dd><p>Upload an arbitrary file artifact to W&amp;B.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.utils.wandb_utils.WandbSummaryWriter.save_video">
+<span class="sig-name descname"><span class="pre">save_video</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">video</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">it</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/utils/wandb_utils.html#WandbSummaryWriter.save_video"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.utils.wandb_utils.WandbSummaryWriter.save_video" title="Link to this definition">¶</a></dt>
+<dd><p>Upload a video artifact once per filename to W&amp;B.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>video</strong> (<em>Path</em>)</p></li>
+<li><p><strong>it</strong> (<em>int</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-rsl_rl.utils.neptune_utils">
+<span id="neptune-utils"></span><h2>Neptune Utils<a class="headerlink" href="#module-rsl_rl.utils.neptune_utils" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="rsl_rl.utils.neptune_utils.NeptuneSummaryWriter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rsl_rl.utils.neptune_utils.</span></span><span class="sig-name descname"><span class="pre">NeptuneSummaryWriter</span></span><a class="reference internal" href="../_modules/rsl_rl/utils/neptune_utils.html#NeptuneSummaryWriter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.utils.neptune_utils.NeptuneSummaryWriter" title="Link to this definition">¶</a></dt>
+<dd><p>Summary writer for Neptune.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.utils.neptune_utils.NeptuneSummaryWriter.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flush_secs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cfg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/utils/neptune_utils.html#NeptuneSummaryWriter.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.utils.neptune_utils.NeptuneSummaryWriter.__init__" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize a Neptune run for logging.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>log_dir</strong> (<em>str</em>)</p></li>
+<li><p><strong>flush_secs</strong> (<em>int</em>)</p></li>
+<li><p><strong>cfg</strong> (<em>dict</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.utils.neptune_utils.NeptuneSummaryWriter.store_config">
+<span class="sig-name descname"><span class="pre">store_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">env_cfg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_cfg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/utils/neptune_utils.html#NeptuneSummaryWriter.store_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.utils.neptune_utils.NeptuneSummaryWriter.store_config" title="Link to this definition">¶</a></dt>
+<dd><p>Upload environment and training configuration to Neptune.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>env_cfg</strong> (<em>dict</em><em> | </em><em>object</em>)</p></li>
+<li><p><strong>train_cfg</strong> (<em>dict</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.utils.neptune_utils.NeptuneSummaryWriter.add_scalar">
+<span class="sig-name descname"><span class="pre">add_scalar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tag</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scalar_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">global_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">walltime</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/utils/neptune_utils.html#NeptuneSummaryWriter.add_scalar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.utils.neptune_utils.NeptuneSummaryWriter.add_scalar" title="Link to this definition">¶</a></dt>
+<dd><p>Log a scalar to both TensorBoard and Neptune.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tag</strong> (<em>str</em>)</p></li>
+<li><p><strong>scalar_value</strong> (<em>float</em>)</p></li>
+<li><p><strong>global_step</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>walltime</strong> (<em>float</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>new_style</strong> (<em>bool</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.utils.neptune_utils.NeptuneSummaryWriter.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/utils/neptune_utils.html#NeptuneSummaryWriter.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.utils.neptune_utils.NeptuneSummaryWriter.stop" title="Link to this definition">¶</a></dt>
+<dd><p>Finish the active Neptune run.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.utils.neptune_utils.NeptuneSummaryWriter.save_model">
+<span class="sig-name descname"><span class="pre">save_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">it</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/utils/neptune_utils.html#NeptuneSummaryWriter.save_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.utils.neptune_utils.NeptuneSummaryWriter.save_model" title="Link to this definition">¶</a></dt>
+<dd><p>Upload a model checkpoint artifact to Neptune.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model_path</strong> (<em>str</em>)</p></li>
+<li><p><strong>it</strong> (<em>int</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.utils.neptune_utils.NeptuneSummaryWriter.save_file">
+<span class="sig-name descname"><span class="pre">save_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/utils/neptune_utils.html#NeptuneSummaryWriter.save_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.utils.neptune_utils.NeptuneSummaryWriter.save_file" title="Link to this definition">¶</a></dt>
+<dd><p>Upload an arbitrary file artifact to Neptune.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          <a class="prev-page" href="storage.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Storage</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2021-2026, ETH Zurich and NVIDIA CORPORATION
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Utils</a><ul>
+<li><a class="reference internal" href="#module-rsl_rl.utils.logger">Logger</a><ul>
+<li><a class="reference internal" href="#rsl_rl.utils.logger.Logger"><code class="docutils literal notranslate"><span class="pre">Logger</span></code></a><ul>
+<li><a class="reference internal" href="#rsl_rl.utils.logger.Logger.__init__"><code class="docutils literal notranslate"><span class="pre">Logger.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.utils.logger.Logger.init_logging_writer"><code class="docutils literal notranslate"><span class="pre">Logger.init_logging_writer()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.utils.logger.Logger.process_env_step"><code class="docutils literal notranslate"><span class="pre">Logger.process_env_step()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.utils.logger.Logger.log"><code class="docutils literal notranslate"><span class="pre">Logger.log()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.utils.logger.Logger.save_model"><code class="docutils literal notranslate"><span class="pre">Logger.save_model()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.utils.logger.Logger.stop_logging_writer"><code class="docutils literal notranslate"><span class="pre">Logger.stop_logging_writer()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id1">Utils</a><ul>
+<li><a class="reference internal" href="#rsl_rl.utils.utils.get_param"><code class="docutils literal notranslate"><span class="pre">get_param()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.utils.utils.resolve_nn_activation"><code class="docutils literal notranslate"><span class="pre">resolve_nn_activation()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.utils.utils.resolve_optimizer"><code class="docutils literal notranslate"><span class="pre">resolve_optimizer()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.utils.utils.resolve_callable"><code class="docutils literal notranslate"><span class="pre">resolve_callable()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.utils.utils.resolve_obs_groups"><code class="docutils literal notranslate"><span class="pre">resolve_obs_groups()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.utils.utils.check_nan"><code class="docutils literal notranslate"><span class="pre">check_nan()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.utils.utils.compile_model"><code class="docutils literal notranslate"><span class="pre">compile_model()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.utils.utils.split_and_pad_trajectories"><code class="docutils literal notranslate"><span class="pre">split_and_pad_trajectories()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.utils.utils.unpad_trajectories"><code class="docutils literal notranslate"><span class="pre">unpad_trajectories()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-rsl_rl.utils.wandb_utils">Wandb Utils</a><ul>
+<li><a class="reference internal" href="#rsl_rl.utils.wandb_utils.WandbSummaryWriter"><code class="docutils literal notranslate"><span class="pre">WandbSummaryWriter</span></code></a><ul>
+<li><a class="reference internal" href="#rsl_rl.utils.wandb_utils.WandbSummaryWriter.__init__"><code class="docutils literal notranslate"><span class="pre">WandbSummaryWriter.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.utils.wandb_utils.WandbSummaryWriter.store_config"><code class="docutils literal notranslate"><span class="pre">WandbSummaryWriter.store_config()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.utils.wandb_utils.WandbSummaryWriter.add_scalar"><code class="docutils literal notranslate"><span class="pre">WandbSummaryWriter.add_scalar()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.utils.wandb_utils.WandbSummaryWriter.stop"><code class="docutils literal notranslate"><span class="pre">WandbSummaryWriter.stop()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.utils.wandb_utils.WandbSummaryWriter.save_model"><code class="docutils literal notranslate"><span class="pre">WandbSummaryWriter.save_model()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.utils.wandb_utils.WandbSummaryWriter.save_file"><code class="docutils literal notranslate"><span class="pre">WandbSummaryWriter.save_file()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.utils.wandb_utils.WandbSummaryWriter.save_video"><code class="docutils literal notranslate"><span class="pre">WandbSummaryWriter.save_video()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-rsl_rl.utils.neptune_utils">Neptune Utils</a><ul>
+<li><a class="reference internal" href="#rsl_rl.utils.neptune_utils.NeptuneSummaryWriter"><code class="docutils literal notranslate"><span class="pre">NeptuneSummaryWriter</span></code></a><ul>
+<li><a class="reference internal" href="#rsl_rl.utils.neptune_utils.NeptuneSummaryWriter.__init__"><code class="docutils literal notranslate"><span class="pre">NeptuneSummaryWriter.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.utils.neptune_utils.NeptuneSummaryWriter.store_config"><code class="docutils literal notranslate"><span class="pre">NeptuneSummaryWriter.store_config()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.utils.neptune_utils.NeptuneSummaryWriter.add_scalar"><code class="docutils literal notranslate"><span class="pre">NeptuneSummaryWriter.add_scalar()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.utils.neptune_utils.NeptuneSummaryWriter.stop"><code class="docutils literal notranslate"><span class="pre">NeptuneSummaryWriter.stop()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.utils.neptune_utils.NeptuneSummaryWriter.save_model"><code class="docutils literal notranslate"><span class="pre">NeptuneSummaryWriter.save_model()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.utils.neptune_utils.NeptuneSummaryWriter.save_file"><code class="docutils literal notranslate"><span class="pre">NeptuneSummaryWriter.save_file()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
+    </body>
+</html>

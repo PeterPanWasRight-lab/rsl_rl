@@ -1,0 +1,1191 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html"><link rel="search" title="Search" href="../search.html"><link rel="next" title="Runners" href="runners.html"><link rel="prev" title="Models" href="models.html">
+        <link rel="prefetch" href="../_static/rsl_rl_logo_light.svg" as="image">
+        <link rel="prefetch" href="../_static/rsl_rl_logo_dark.svg" as="image">
+
+    <!-- Generated with Sphinx 8.1.3 and Furo 2025.12.19 -->
+        <title>Modules - RSL-RL</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=2a5a7561" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  --color-highlight-on-target: rgba(12, 121, 190, 0.5);
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-highlight-on-target: rgba(12, 121, 190, 0.5);
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-highlight-on-target: rgba(12, 121, 190, 0.5);
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">RSL-RL</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../_static/rsl_rl_logo_light.svg" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../_static/rsl_rl_logo_dark.svg" alt="Dark Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../guide/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/contribution.html">Contribution</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="algorithms.html">Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="env.html">Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extensions.html">Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">Models</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="runners.html">Runners</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage.html">Storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Project Links</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/leggedrobotics/rsl_rl">GitHub Repository</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://pypi.org/project/rsl-rl-lib/">PyPI Package</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../_sources/api/modules.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="modules">
+<h1>Modules<a class="headerlink" href="#modules" title="Link to this heading">¶</a></h1>
+<section id="module-rsl_rl.modules.mlp">
+<span id="mlp"></span><h2>MLP<a class="headerlink" href="#module-rsl_rl.modules.mlp" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="rsl_rl.modules.mlp.MLP">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rsl_rl.modules.mlp.</span></span><span class="sig-name descname"><span class="pre">MLP</span></span><a class="reference internal" href="../_modules/rsl_rl/modules/mlp.html#MLP"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.mlp.MLP" title="Link to this definition">¶</a></dt>
+<dd><p>Multi-Layer Perceptron.</p>
+<p>The MLP network is a sequence of linear layers and activation functions. The last layer is a linear layer that
+outputs the desired dimension unless the last activation function is specified.</p>
+<p>It provides additional conveniences:
+- If the hidden dimensions have a value of <code class="docutils literal notranslate"><span class="pre">-1</span></code>, the dimension is inferred from the input dimension.
+- If the output dimension is a tuple, the output is reshaped to the desired shape.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.modules.mlp.MLP.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_dims</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'elu'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_activation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/modules/mlp.html#MLP.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.mlp.MLP.__init__" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize the MLP.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_dim</strong> (<em>int</em>) – Dimension of the input.</p></li>
+<li><p><strong>output_dim</strong> (<em>int</em><em> | </em><em>tuple</em><em>[</em><em>int</em><em>, </em><em>...</em><em>] </em><em>| </em><em>list</em><em>[</em><em>int</em><em>]</em>) – Dimension of the output.</p></li>
+<li><p><strong>hidden_dims</strong> (<em>tuple</em><em>[</em><em>int</em><em>, </em><em>...</em><em>] </em><em>| </em><em>list</em><em>[</em><em>int</em><em>]</em>) – Dimensions of the hidden layers. A value of <code class="docutils literal notranslate"><span class="pre">-1</span></code> indicates that the dimension should be
+inferred from the input dimension.</p></li>
+<li><p><strong>activation</strong> (<em>str</em>) – Activation function.</p></li>
+<li><p><strong>last_activation</strong> (<em>str</em><em> | </em><em>None</em>) – Activation function of the last layer. None results in a linear last layer.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.modules.mlp.MLP.init_weights">
+<span class="sig-name descname"><span class="pre">init_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scales</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/modules/mlp.html#MLP.init_weights"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.mlp.MLP.init_weights" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize the weights of the MLP.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>scales</strong> (<em>float</em><em> | </em><em>tuple</em><em>[</em><em>float</em><em>]</em>) – Scale factor for the weights.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.modules.mlp.MLP.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/modules/mlp.html#MLP.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.mlp.MLP.forward" title="Link to this definition">¶</a></dt>
+<dd><p>Forward pass of the MLP.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>torch.Tensor</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-rsl_rl.modules.rnn">
+<span id="rnn"></span><h2>RNN<a class="headerlink" href="#module-rsl_rl.modules.rnn" title="Link to this heading">¶</a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="rsl_rl.modules.rnn.HiddenState">
+<span class="sig-prename descclassname"><span class="pre">rsl_rl.modules.rnn.</span></span><span class="sig-name descname"><span class="pre">HiddenState</span></span><a class="headerlink" href="#rsl_rl.modules.rnn.HiddenState" title="Link to this definition">¶</a></dt>
+<dd><p>Type alias for the hidden state of RNNs (GRU/LSTM).</p>
+<p>For GRUs, this is a single tensor while for LSTMs, this is a tuple of two tensors (hidden state and cell state).</p>
+<p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code> | <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code>] | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="rsl_rl.modules.rnn.RNN">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rsl_rl.modules.rnn.</span></span><span class="sig-name descname"><span class="pre">RNN</span></span><a class="reference internal" href="../_modules/rsl_rl/modules/rnn.html#RNN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.rnn.RNN" title="Link to this definition">¶</a></dt>
+<dd><p>Recurrent Neural Network.</p>
+<p>This network is used to store the hidden state of the policy. It currently supports GRU and LSTM.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.modules.rnn.RNN.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_layers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'lstm'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/modules/rnn.html#RNN.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.rnn.RNN.__init__" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize a GRU or LSTM module with internal hidden-state storage.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_size</strong> (<em>int</em>)</p></li>
+<li><p><strong>hidden_dim</strong> (<em>int</em>)</p></li>
+<li><p><strong>num_layers</strong> (<em>int</em>)</p></li>
+<li><p><strong>type</strong> (<em>str</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.modules.rnn.RNN.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">masks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/modules/rnn.html#RNN.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.rnn.RNN.forward" title="Link to this definition">¶</a></dt>
+<dd><p>Run recurrent inference in rollout mode or batched update mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input</strong> (<em>torch.Tensor</em>)</p></li>
+<li><p><strong>masks</strong> (<em>torch.Tensor</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>hidden_state</strong> (<em>HiddenState</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.modules.rnn.RNN.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dones</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/modules/rnn.html#RNN.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.rnn.RNN.reset" title="Link to this definition">¶</a></dt>
+<dd><p>Reset hidden states for all or done environments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dones</strong> (<em>torch.Tensor</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>hidden_state</strong> (<em>HiddenState</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.modules.rnn.RNN.detach_hidden_state">
+<span class="sig-name descname"><span class="pre">detach_hidden_state</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dones</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/modules/rnn.html#RNN.detach_hidden_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.rnn.RNN.detach_hidden_state" title="Link to this definition">¶</a></dt>
+<dd><p>Detach hidden states for all or done environments from the computation graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dones</strong> (<em>torch.Tensor</em><em> | </em><em>None</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-rsl_rl.modules.cnn">
+<span id="cnn"></span><h2>CNN<a class="headerlink" href="#module-rsl_rl.modules.cnn" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="rsl_rl.modules.cnn.CNN">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rsl_rl.modules.cnn.</span></span><span class="sig-name descname"><span class="pre">CNN</span></span><a class="reference internal" href="../_modules/rsl_rl/modules/cnn.html#CNN"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.cnn.CNN" title="Link to this definition">¶</a></dt>
+<dd><p>Convolutional Neural Network.</p>
+<p>The CNN network is a sequence of convolutional layers, optional normalization layers, optional activation functions,
+and optional pooling. The final output can be flattened.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.modules.cnn.CNN.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stride</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dilation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'elu'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_pool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">global_pool</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flatten</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/modules/cnn.html#CNN.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.cnn.CNN.__init__" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize the CNN.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_dim</strong> (<em>tuple</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em>) – Height and width of the input.</p></li>
+<li><p><strong>input_channels</strong> (<em>int</em>) – Number of input channels.</p></li>
+<li><p><strong>output_channels</strong> (<em>tuple</em><em>[</em><em>int</em><em>, </em><em>...</em><em>] </em><em>| </em><em>list</em><em>[</em><em>int</em><em>]</em>) – List of output channels for each convolutional layer.</p></li>
+<li><p><strong>kernel_size</strong> (<em>int</em><em> | </em><em>tuple</em><em>[</em><em>int</em><em>, </em><em>...</em><em>] </em><em>| </em><em>list</em><em>[</em><em>int</em><em>]</em>) – List of kernel sizes for each convolutional layer or a single kernel size for all layers.</p></li>
+<li><p><strong>stride</strong> (<em>int</em><em> | </em><em>tuple</em><em>[</em><em>int</em><em>, </em><em>...</em><em>] </em><em>| </em><em>list</em><em>[</em><em>int</em><em>]</em>) – List of strides for each convolutional layer or a single stride for all layers.</p></li>
+<li><p><strong>dilation</strong> (<em>int</em><em> | </em><em>tuple</em><em>[</em><em>int</em><em>, </em><em>...</em><em>] </em><em>| </em><em>list</em><em>[</em><em>int</em><em>]</em>) – List of dilations for each convolutional layer or a single dilation for all layers.</p></li>
+<li><p><strong>padding</strong> (<em>str</em>) – Padding type to use. Either ‘none’, ‘zeros’, ‘reflect’, ‘replicate’, or ‘circular’.</p></li>
+<li><p><strong>norm</strong> (<em>str</em><em> | </em><em>tuple</em><em>[</em><em>str</em><em>] </em><em>| </em><em>list</em><em>[</em><em>str</em><em>]</em>) – List of normalization types for each convolutional layer or a single type for all layers. Either
+‘none’, ‘batch’, or ‘layer’.</p></li>
+<li><p><strong>activation</strong> (<em>str</em>) – Activation function to use.</p></li>
+<li><p><strong>max_pool</strong> (<em>bool</em><em> | </em><em>tuple</em><em>[</em><em>bool</em><em>] </em><em>| </em><em>list</em><em>[</em><em>bool</em><em>]</em>) – List of booleans indicating whether to apply max pooling after each convolutional layer or a
+single boolean for all layers.</p></li>
+<li><p><strong>global_pool</strong> (<em>str</em>) – Global pooling type to apply at the end. Either ‘none’, ‘max’, or ‘avg’.</p></li>
+<li><p><strong>flatten</strong> (<em>bool</em>) – Whether to flatten the output tensor.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="rsl_rl.modules.cnn.CNN.output_channels">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">output_channels</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#rsl_rl.modules.cnn.CNN.output_channels" title="Link to this definition">¶</a></dt>
+<dd><p>Get the number of output channels or None if output is flattened.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="rsl_rl.modules.cnn.CNN.output_dim">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">output_dim</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#rsl_rl.modules.cnn.CNN.output_dim" title="Link to this definition">¶</a></dt>
+<dd><p>Get the output height and width or total output dimension if output is flattened.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.modules.cnn.CNN.init_weights">
+<span class="sig-name descname"><span class="pre">init_weights</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/modules/cnn.html#CNN.init_weights"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.cnn.CNN.init_weights" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize the weights of the CNN with Kaiming initialization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.modules.cnn.CNN.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/modules/cnn.html#CNN.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.cnn.CNN.forward" title="Link to this definition">¶</a></dt>
+<dd><p>Forward pass of the CNN.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>torch.Tensor</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-rsl_rl.modules.normalization">
+<span id="normalization"></span><h2>Normalization<a class="headerlink" href="#module-rsl_rl.modules.normalization" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="rsl_rl.modules.normalization.EmpiricalNormalization">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rsl_rl.modules.normalization.</span></span><span class="sig-name descname"><span class="pre">EmpiricalNormalization</span></span><a class="reference internal" href="../_modules/rsl_rl/modules/normalization.html#EmpiricalNormalization"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.normalization.EmpiricalNormalization" title="Link to this definition">¶</a></dt>
+<dd><p>Normalize mean and variance of values based on empirical values.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.modules.normalization.EmpiricalNormalization.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">until</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/modules/normalization.html#EmpiricalNormalization.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.normalization.EmpiricalNormalization.__init__" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize EmpiricalNormalization module.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The normalization parameters are computed over the whole batch, not for each environment separately.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape</strong> (<em>int</em><em> | </em><em>tuple</em><em>[</em><em>int</em><em>, </em><em>...</em><em>] </em><em>| </em><em>list</em><em>[</em><em>int</em><em>]</em>) – Shape of input values except batch axis.</p></li>
+<li><p><strong>eps</strong> (<em>float</em>) – Small value for stability.</p></li>
+<li><p><strong>until</strong> (<em>int</em><em> | </em><em>None</em>) – If this arg is specified, the module learns input values until the sum of batch sizes exceeds it.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="rsl_rl.modules.normalization.EmpiricalNormalization.mean">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mean</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">torch.Tensor</span></em><a class="headerlink" href="#rsl_rl.modules.normalization.EmpiricalNormalization.mean" title="Link to this definition">¶</a></dt>
+<dd><p>Return the current running mean.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="rsl_rl.modules.normalization.EmpiricalNormalization.std">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">std</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">torch.Tensor</span></em><a class="headerlink" href="#rsl_rl.modules.normalization.EmpiricalNormalization.std" title="Link to this definition">¶</a></dt>
+<dd><p>Return the current running standard deviation.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.modules.normalization.EmpiricalNormalization.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/modules/normalization.html#EmpiricalNormalization.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.normalization.EmpiricalNormalization.forward" title="Link to this definition">¶</a></dt>
+<dd><p>Normalize mean and variance of values based on empirical values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>torch.Tensor</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.modules.normalization.EmpiricalNormalization.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rsl_rl.modules.normalization.EmpiricalNormalization.update" title="Link to this definition">¶</a></dt>
+<dd><p>Learn input values without computing the output values of them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>torch.Tensor</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.modules.normalization.EmpiricalNormalization.inverse">
+<span class="sig-name descname"><span class="pre">inverse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rsl_rl.modules.normalization.EmpiricalNormalization.inverse" title="Link to this definition">¶</a></dt>
+<dd><p>De-normalize values based on empirical values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>y</strong> (<em>torch.Tensor</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="rsl_rl.modules.normalization.EmpiricalDiscountedVariationNormalization">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rsl_rl.modules.normalization.</span></span><span class="sig-name descname"><span class="pre">EmpiricalDiscountedVariationNormalization</span></span><a class="reference internal" href="../_modules/rsl_rl/modules/normalization.html#EmpiricalDiscountedVariationNormalization"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.normalization.EmpiricalDiscountedVariationNormalization" title="Link to this definition">¶</a></dt>
+<dd><p>Reward normalization from Pathak’s large scale study on PPO.</p>
+<p>Reward normalization. Since the reward function is non-stationary, it is useful to normalize the scale of the
+rewards so that the value function can learn quickly. We did this by dividing the rewards by a running estimate of
+the standard deviation of the sum of discounted rewards.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.modules.normalization.EmpiricalDiscountedVariationNormalization.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.99</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">until</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/modules/normalization.html#EmpiricalDiscountedVariationNormalization.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.normalization.EmpiricalDiscountedVariationNormalization.__init__" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize discounted-reward normalization with running moments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape</strong> (<em>int</em><em> | </em><em>tuple</em><em>[</em><em>int</em><em>, </em><em>...</em><em>] </em><em>| </em><em>list</em><em>[</em><em>int</em><em>]</em>)</p></li>
+<li><p><strong>eps</strong> (<em>float</em>)</p></li>
+<li><p><strong>gamma</strong> (<em>float</em>)</p></li>
+<li><p><strong>until</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.modules.normalization.EmpiricalDiscountedVariationNormalization.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rew</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/modules/normalization.html#EmpiricalDiscountedVariationNormalization.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.normalization.EmpiricalDiscountedVariationNormalization.forward" title="Link to this definition">¶</a></dt>
+<dd><p>Normalize rewards using the running std of discounted returns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>rew</strong> (<em>torch.Tensor</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-rsl_rl.modules.distribution">
+<span id="distribution"></span><h2>Distribution<a class="headerlink" href="#module-rsl_rl.modules.distribution" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="rsl_rl.modules.distribution.Distribution">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rsl_rl.modules.distribution.</span></span><span class="sig-name descname"><span class="pre">Distribution</span></span><a class="reference internal" href="../_modules/rsl_rl/modules/distribution.html#Distribution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.distribution.Distribution" title="Link to this definition">¶</a></dt>
+<dd><p>Base class for distribution modules.</p>
+<p>Distribution modules encapsulate the stochastic output of a neural model. They define the output structure expected
+from the MLP, manage learnable distribution parameters, and provide methods for sampling, log probability
+computation, and entropy calculation.</p>
+<p>Subclasses must implement all abstract methods and properties to define a specific distribution type.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.modules.distribution.Distribution.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_dim</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/modules/distribution.html#Distribution.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.distribution.Distribution.__init__" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize the distribution module.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>output_dim</strong> (<em>int</em>) – Dimension of the action/output space.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.modules.distribution.Distribution.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mlp_output</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/modules/distribution.html#Distribution.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.distribution.Distribution.update" title="Link to this definition">¶</a></dt>
+<dd><p>Update the distribution parameters given the MLP output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mlp_output</strong> (<em>torch.Tensor</em>) – Raw output from the MLP.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.modules.distribution.Distribution.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/modules/distribution.html#Distribution.sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.distribution.Distribution.sample" title="Link to this definition">¶</a></dt>
+<dd><p>Sample from the distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Sampled values.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.modules.distribution.Distribution.deterministic_output">
+<span class="sig-name descname"><span class="pre">deterministic_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mlp_output</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/modules/distribution.html#Distribution.deterministic_output"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.distribution.Distribution.deterministic_output" title="Link to this definition">¶</a></dt>
+<dd><p>Extract the deterministic (mean) output from the raw MLP output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mlp_output</strong> (<em>torch.Tensor</em>) – Raw output from the MLP.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The deterministic output (typically the distribution mean).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.modules.distribution.Distribution.as_deterministic_output_module">
+<span class="sig-name descname"><span class="pre">as_deterministic_output_module</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/modules/distribution.html#Distribution.as_deterministic_output_module"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.distribution.Distribution.as_deterministic_output_module" title="Link to this definition">¶</a></dt>
+<dd><p>Return an export-friendly module that extracts the deterministic output from the MLP output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.nn.Module</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="rsl_rl.modules.distribution.Distribution.input_dim">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">input_dim</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#rsl_rl.modules.distribution.Distribution.input_dim" title="Link to this definition">¶</a></dt>
+<dd><p>Return the input dimension required by the distribution.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="rsl_rl.modules.distribution.Distribution.mean">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mean</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">torch.Tensor</span></em><a class="headerlink" href="#rsl_rl.modules.distribution.Distribution.mean" title="Link to this definition">¶</a></dt>
+<dd><p>Return the mean of the distribution.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="rsl_rl.modules.distribution.Distribution.std">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">std</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">torch.Tensor</span></em><a class="headerlink" href="#rsl_rl.modules.distribution.Distribution.std" title="Link to this definition">¶</a></dt>
+<dd><p>Return the standard deviation (or spread measure) of the distribution.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="rsl_rl.modules.distribution.Distribution.entropy">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">entropy</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">torch.Tensor</span></em><a class="headerlink" href="#rsl_rl.modules.distribution.Distribution.entropy" title="Link to this definition">¶</a></dt>
+<dd><p>Return the entropy of the distribution, summed over the last dimension.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="rsl_rl.modules.distribution.Distribution.params">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">params</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.Tensor</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#rsl_rl.modules.distribution.Distribution.params" title="Link to this definition">¶</a></dt>
+<dd><p>Return the distribution parameters as a tuple of tensors.</p>
+<p>These are the distribution-specific parameters needed to reconstruct the distribution (e.g., mean and std for
+Gaussian, alpha and beta for Beta). They are stored during rollouts and used for KL divergence computation.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.modules.distribution.Distribution.log_prob">
+<span class="sig-name descname"><span class="pre">log_prob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/modules/distribution.html#Distribution.log_prob"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.distribution.Distribution.log_prob" title="Link to this definition">¶</a></dt>
+<dd><p>Compute the log probability of the given outputs, summed over the last dimension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>outputs</strong> (<em>torch.Tensor</em>) – Values to compute the log probability for.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Log probability summed over the last dimension.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.modules.distribution.Distribution.kl_divergence">
+<span class="sig-name descname"><span class="pre">kl_divergence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">old_params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/modules/distribution.html#Distribution.kl_divergence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.distribution.Distribution.kl_divergence" title="Link to this definition">¶</a></dt>
+<dd><p>Compute the KL divergence KL(old || new) between two distributions of this type.</p>
+<p>The KL divergence measures how the old distribution diverges from the new distribution.
+This is used for adaptive learning rate scheduling in policy optimization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>old_params</strong> (<em>tuple</em><em>[</em><em>torch.Tensor</em><em>, </em><em>...</em><em>]</em>) – Parameters of the old distribution (as returned by <a class="reference internal" href="#rsl_rl.modules.distribution.Distribution.params" title="rsl_rl.modules.distribution.Distribution.params"><code class="xref py py-attr docutils literal notranslate"><span class="pre">params</span></code></a>).</p></li>
+<li><p><strong>new_params</strong> (<em>tuple</em><em>[</em><em>torch.Tensor</em><em>, </em><em>...</em><em>]</em>) – Parameters of the new distribution (as returned by <a class="reference internal" href="#rsl_rl.modules.distribution.Distribution.params" title="rsl_rl.modules.distribution.Distribution.params"><code class="xref py py-attr docutils literal notranslate"><span class="pre">params</span></code></a>).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>KL divergence summed over the last dimension.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.modules.distribution.Distribution.init_mlp_weights">
+<span class="sig-name descname"><span class="pre">init_mlp_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mlp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/modules/distribution.html#Distribution.init_mlp_weights"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.distribution.Distribution.init_mlp_weights" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize distribution-specific weights in the MLP.</p>
+<p>This is called after MLP creation to set up any special weight initialization
+required by the distribution (e.g., initializing std head weights).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mlp</strong> (<em>torch.nn.Module</em>) – The MLP module whose weights may need initialization.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="rsl_rl.modules.distribution.GaussianDistribution">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rsl_rl.modules.distribution.</span></span><span class="sig-name descname"><span class="pre">GaussianDistribution</span></span><a class="reference internal" href="../_modules/rsl_rl/modules/distribution.html#GaussianDistribution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.distribution.GaussianDistribution" title="Link to this definition">¶</a></dt>
+<dd><p>Gaussian distribution module with state-independent standard deviation.</p>
+<p>This distribution parameterizes stochastic outputs using a multivariate Gaussian with diagonal covariance. The
+standard deviation can be a learnable parameter or a constant. It can be parameterized in either “scalar” space or
+“log” space and is clamped to a specified range.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the standard deviation type is set to “log”, the provided arguments are still interpreted in scalar space,
+and converted to log space internally.</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.modules.distribution.GaussianDistribution.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_std</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(1e-06,</span> <span class="pre">1000000.0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'scalar'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learn_std</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/modules/distribution.html#GaussianDistribution.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.distribution.GaussianDistribution.__init__" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize the Gaussian distribution module.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>output_dim</strong> (<em>int</em>) – Dimension of the action/output space.</p></li>
+<li><p><strong>init_std</strong> (<em>float</em>) – Initial standard deviation.</p></li>
+<li><p><strong>std_range</strong> (<em>tuple</em><em>[</em><em>float</em><em>, </em><em>float</em><em>]</em>) – Range for the standard deviation. Should be a tuple of (min, max) values for clamping.</p></li>
+<li><p><strong>std_type</strong> (<em>str</em>) – Parameterization of the standard deviation: “scalar” or “log”.</p></li>
+<li><p><strong>learn_std</strong> (<em>bool</em>) – Whether the standard deviation should be learnable. If False, it will be fixed to <cite>init_std</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.modules.distribution.GaussianDistribution.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mlp_output</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/modules/distribution.html#GaussianDistribution.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.distribution.GaussianDistribution.update" title="Link to this definition">¶</a></dt>
+<dd><p>Update the Gaussian distribution from MLP output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mlp_output</strong> (<em>torch.Tensor</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.modules.distribution.GaussianDistribution.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/modules/distribution.html#GaussianDistribution.sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.distribution.GaussianDistribution.sample" title="Link to this definition">¶</a></dt>
+<dd><p>Sample from the Gaussian distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.modules.distribution.GaussianDistribution.deterministic_output">
+<span class="sig-name descname"><span class="pre">deterministic_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mlp_output</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/modules/distribution.html#GaussianDistribution.deterministic_output"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.distribution.GaussianDistribution.deterministic_output" title="Link to this definition">¶</a></dt>
+<dd><p>Extract the mean from the MLP output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mlp_output</strong> (<em>torch.Tensor</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.modules.distribution.GaussianDistribution.as_deterministic_output_module">
+<span class="sig-name descname"><span class="pre">as_deterministic_output_module</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/modules/distribution.html#GaussianDistribution.as_deterministic_output_module"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.distribution.GaussianDistribution.as_deterministic_output_module" title="Link to this definition">¶</a></dt>
+<dd><p>Return an export-friendly module that extracts the mean from the MLP output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.nn.Module</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="rsl_rl.modules.distribution.GaussianDistribution.input_dim">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">input_dim</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#rsl_rl.modules.distribution.GaussianDistribution.input_dim" title="Link to this definition">¶</a></dt>
+<dd><p>Return the input dimension required by the distribution.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="rsl_rl.modules.distribution.GaussianDistribution.mean">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mean</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">torch.Tensor</span></em><a class="headerlink" href="#rsl_rl.modules.distribution.GaussianDistribution.mean" title="Link to this definition">¶</a></dt>
+<dd><p>Return the mean of the Gaussian distribution.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="rsl_rl.modules.distribution.GaussianDistribution.std">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">std</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">torch.Tensor</span></em><a class="headerlink" href="#rsl_rl.modules.distribution.GaussianDistribution.std" title="Link to this definition">¶</a></dt>
+<dd><p>Return the standard deviation of the Gaussian distribution.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="rsl_rl.modules.distribution.GaussianDistribution.entropy">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">entropy</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">torch.Tensor</span></em><a class="headerlink" href="#rsl_rl.modules.distribution.GaussianDistribution.entropy" title="Link to this definition">¶</a></dt>
+<dd><p>Return the entropy of the Gaussian distribution, summed over the last dimension.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="rsl_rl.modules.distribution.GaussianDistribution.params">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">params</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">torch.Tensor</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#rsl_rl.modules.distribution.GaussianDistribution.params" title="Link to this definition">¶</a></dt>
+<dd><p>Return (mean, std) of the current Gaussian distribution.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.modules.distribution.GaussianDistribution.log_prob">
+<span class="sig-name descname"><span class="pre">log_prob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">outputs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/modules/distribution.html#GaussianDistribution.log_prob"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.distribution.GaussianDistribution.log_prob" title="Link to this definition">¶</a></dt>
+<dd><p>Compute the log probability under the Gaussian, summed over the last dimension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>outputs</strong> (<em>torch.Tensor</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.modules.distribution.GaussianDistribution.kl_divergence">
+<span class="sig-name descname"><span class="pre">kl_divergence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">old_params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/modules/distribution.html#GaussianDistribution.kl_divergence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.distribution.GaussianDistribution.kl_divergence" title="Link to this definition">¶</a></dt>
+<dd><p>Compute KL(old || new) between two Gaussian distributions using torch.distributions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>old_params</strong> (<em>tuple</em><em>[</em><em>torch.Tensor</em><em>, </em><em>...</em><em>]</em>)</p></li>
+<li><p><strong>new_params</strong> (<em>tuple</em><em>[</em><em>torch.Tensor</em><em>, </em><em>...</em><em>]</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="rsl_rl.modules.distribution.HeteroscedasticGaussianDistribution">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">rsl_rl.modules.distribution.</span></span><span class="sig-name descname"><span class="pre">HeteroscedasticGaussianDistribution</span></span><a class="reference internal" href="../_modules/rsl_rl/modules/distribution.html#HeteroscedasticGaussianDistribution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.distribution.HeteroscedasticGaussianDistribution" title="Link to this definition">¶</a></dt>
+<dd><p>Gaussian distribution module with state-dependent standard deviation.</p>
+<p>This distribution parameterizes stochastic outputs using a multivariate Gaussian with diagonal covariance. The
+standard deviation is output by the MLP alongside the mean, making it state-dependent. It can be parameterized in
+either “scalar” space or “log” space, and is clamped to a specified range.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the standard deviation type is set to “log”, the provided arguments are still interpreted in scalar space,
+and converted to log space internally.</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.modules.distribution.HeteroscedasticGaussianDistribution.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">init_std</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std_range</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(1e-06,</span> <span class="pre">1000000.0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'scalar'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/modules/distribution.html#HeteroscedasticGaussianDistribution.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.distribution.HeteroscedasticGaussianDistribution.__init__" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize the heteroscedastic Gaussian distribution module.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>output_dim</strong> (<em>int</em>) – Dimension of the action/output space.</p></li>
+<li><p><strong>init_std</strong> (<em>float</em>) – Initial standard deviation (used to initialize the MLP’s std head bias).</p></li>
+<li><p><strong>std_range</strong> (<em>tuple</em><em>[</em><em>float</em><em>, </em><em>float</em><em>]</em>) – Range for the standard deviation. Should be a tuple of (min, max) values for clamping.</p></li>
+<li><p><strong>std_type</strong> (<em>str</em>) – Parameterization of the standard deviation: “scalar” or “log”.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.modules.distribution.HeteroscedasticGaussianDistribution.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mlp_output</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/modules/distribution.html#HeteroscedasticGaussianDistribution.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.distribution.HeteroscedasticGaussianDistribution.update" title="Link to this definition">¶</a></dt>
+<dd><p>Update the Gaussian distribution from MLP output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mlp_output</strong> (<em>torch.Tensor</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.modules.distribution.HeteroscedasticGaussianDistribution.deterministic_output">
+<span class="sig-name descname"><span class="pre">deterministic_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mlp_output</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/modules/distribution.html#HeteroscedasticGaussianDistribution.deterministic_output"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.distribution.HeteroscedasticGaussianDistribution.deterministic_output" title="Link to this definition">¶</a></dt>
+<dd><p>Extract the mean from the MLP output (first slice of the second-to-last dimension).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mlp_output</strong> (<em>torch.Tensor</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>torch.Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.modules.distribution.HeteroscedasticGaussianDistribution.as_deterministic_output_module">
+<span class="sig-name descname"><span class="pre">as_deterministic_output_module</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/modules/distribution.html#HeteroscedasticGaussianDistribution.as_deterministic_output_module"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.distribution.HeteroscedasticGaussianDistribution.as_deterministic_output_module" title="Link to this definition">¶</a></dt>
+<dd><p>Return export-friendly module that extracts the mean from the MLP output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.nn.Module</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="rsl_rl.modules.distribution.HeteroscedasticGaussianDistribution.input_dim">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">input_dim</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#rsl_rl.modules.distribution.HeteroscedasticGaussianDistribution.input_dim" title="Link to this definition">¶</a></dt>
+<dd><p>Return the input dimension required by the distribution.</p>
+<p>The MLP must output a tensor of shape <code class="docutils literal notranslate"><span class="pre">[...,</span> <span class="pre">2,</span> <span class="pre">output_dim]</span></code> where the first slice along the second-to-last
+dimension is the mean and the second is the standard deviation (or log standard deviation).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rsl_rl.modules.distribution.HeteroscedasticGaussianDistribution.init_mlp_weights">
+<span class="sig-name descname"><span class="pre">init_mlp_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mlp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/rsl_rl/modules/distribution.html#HeteroscedasticGaussianDistribution.init_mlp_weights"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rsl_rl.modules.distribution.HeteroscedasticGaussianDistribution.init_mlp_weights" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize the std head weights in the MLP.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mlp</strong> (<em>torch.nn.Module</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="runners.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Runners</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="models.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Models</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2021-2026, ETH Zurich and NVIDIA CORPORATION
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Modules</a><ul>
+<li><a class="reference internal" href="#module-rsl_rl.modules.mlp">MLP</a><ul>
+<li><a class="reference internal" href="#rsl_rl.modules.mlp.MLP"><code class="docutils literal notranslate"><span class="pre">MLP</span></code></a><ul>
+<li><a class="reference internal" href="#rsl_rl.modules.mlp.MLP.__init__"><code class="docutils literal notranslate"><span class="pre">MLP.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.mlp.MLP.init_weights"><code class="docutils literal notranslate"><span class="pre">MLP.init_weights()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.mlp.MLP.forward"><code class="docutils literal notranslate"><span class="pre">MLP.forward()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-rsl_rl.modules.rnn">RNN</a><ul>
+<li><a class="reference internal" href="#rsl_rl.modules.rnn.HiddenState"><code class="docutils literal notranslate"><span class="pre">HiddenState</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.rnn.RNN"><code class="docutils literal notranslate"><span class="pre">RNN</span></code></a><ul>
+<li><a class="reference internal" href="#rsl_rl.modules.rnn.RNN.__init__"><code class="docutils literal notranslate"><span class="pre">RNN.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.rnn.RNN.forward"><code class="docutils literal notranslate"><span class="pre">RNN.forward()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.rnn.RNN.reset"><code class="docutils literal notranslate"><span class="pre">RNN.reset()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.rnn.RNN.detach_hidden_state"><code class="docutils literal notranslate"><span class="pre">RNN.detach_hidden_state()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-rsl_rl.modules.cnn">CNN</a><ul>
+<li><a class="reference internal" href="#rsl_rl.modules.cnn.CNN"><code class="docutils literal notranslate"><span class="pre">CNN</span></code></a><ul>
+<li><a class="reference internal" href="#rsl_rl.modules.cnn.CNN.__init__"><code class="docutils literal notranslate"><span class="pre">CNN.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.cnn.CNN.output_channels"><code class="docutils literal notranslate"><span class="pre">CNN.output_channels</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.cnn.CNN.output_dim"><code class="docutils literal notranslate"><span class="pre">CNN.output_dim</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.cnn.CNN.init_weights"><code class="docutils literal notranslate"><span class="pre">CNN.init_weights()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.cnn.CNN.forward"><code class="docutils literal notranslate"><span class="pre">CNN.forward()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-rsl_rl.modules.normalization">Normalization</a><ul>
+<li><a class="reference internal" href="#rsl_rl.modules.normalization.EmpiricalNormalization"><code class="docutils literal notranslate"><span class="pre">EmpiricalNormalization</span></code></a><ul>
+<li><a class="reference internal" href="#rsl_rl.modules.normalization.EmpiricalNormalization.__init__"><code class="docutils literal notranslate"><span class="pre">EmpiricalNormalization.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.normalization.EmpiricalNormalization.mean"><code class="docutils literal notranslate"><span class="pre">EmpiricalNormalization.mean</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.normalization.EmpiricalNormalization.std"><code class="docutils literal notranslate"><span class="pre">EmpiricalNormalization.std</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.normalization.EmpiricalNormalization.forward"><code class="docutils literal notranslate"><span class="pre">EmpiricalNormalization.forward()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.normalization.EmpiricalNormalization.update"><code class="docutils literal notranslate"><span class="pre">EmpiricalNormalization.update()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.normalization.EmpiricalNormalization.inverse"><code class="docutils literal notranslate"><span class="pre">EmpiricalNormalization.inverse()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#rsl_rl.modules.normalization.EmpiricalDiscountedVariationNormalization"><code class="docutils literal notranslate"><span class="pre">EmpiricalDiscountedVariationNormalization</span></code></a><ul>
+<li><a class="reference internal" href="#rsl_rl.modules.normalization.EmpiricalDiscountedVariationNormalization.__init__"><code class="docutils literal notranslate"><span class="pre">EmpiricalDiscountedVariationNormalization.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.normalization.EmpiricalDiscountedVariationNormalization.forward"><code class="docutils literal notranslate"><span class="pre">EmpiricalDiscountedVariationNormalization.forward()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-rsl_rl.modules.distribution">Distribution</a><ul>
+<li><a class="reference internal" href="#rsl_rl.modules.distribution.Distribution"><code class="docutils literal notranslate"><span class="pre">Distribution</span></code></a><ul>
+<li><a class="reference internal" href="#rsl_rl.modules.distribution.Distribution.__init__"><code class="docutils literal notranslate"><span class="pre">Distribution.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.distribution.Distribution.update"><code class="docutils literal notranslate"><span class="pre">Distribution.update()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.distribution.Distribution.sample"><code class="docutils literal notranslate"><span class="pre">Distribution.sample()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.distribution.Distribution.deterministic_output"><code class="docutils literal notranslate"><span class="pre">Distribution.deterministic_output()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.distribution.Distribution.as_deterministic_output_module"><code class="docutils literal notranslate"><span class="pre">Distribution.as_deterministic_output_module()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.distribution.Distribution.input_dim"><code class="docutils literal notranslate"><span class="pre">Distribution.input_dim</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.distribution.Distribution.mean"><code class="docutils literal notranslate"><span class="pre">Distribution.mean</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.distribution.Distribution.std"><code class="docutils literal notranslate"><span class="pre">Distribution.std</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.distribution.Distribution.entropy"><code class="docutils literal notranslate"><span class="pre">Distribution.entropy</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.distribution.Distribution.params"><code class="docutils literal notranslate"><span class="pre">Distribution.params</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.distribution.Distribution.log_prob"><code class="docutils literal notranslate"><span class="pre">Distribution.log_prob()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.distribution.Distribution.kl_divergence"><code class="docutils literal notranslate"><span class="pre">Distribution.kl_divergence()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.distribution.Distribution.init_mlp_weights"><code class="docutils literal notranslate"><span class="pre">Distribution.init_mlp_weights()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#rsl_rl.modules.distribution.GaussianDistribution"><code class="docutils literal notranslate"><span class="pre">GaussianDistribution</span></code></a><ul>
+<li><a class="reference internal" href="#rsl_rl.modules.distribution.GaussianDistribution.__init__"><code class="docutils literal notranslate"><span class="pre">GaussianDistribution.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.distribution.GaussianDistribution.update"><code class="docutils literal notranslate"><span class="pre">GaussianDistribution.update()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.distribution.GaussianDistribution.sample"><code class="docutils literal notranslate"><span class="pre">GaussianDistribution.sample()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.distribution.GaussianDistribution.deterministic_output"><code class="docutils literal notranslate"><span class="pre">GaussianDistribution.deterministic_output()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.distribution.GaussianDistribution.as_deterministic_output_module"><code class="docutils literal notranslate"><span class="pre">GaussianDistribution.as_deterministic_output_module()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.distribution.GaussianDistribution.input_dim"><code class="docutils literal notranslate"><span class="pre">GaussianDistribution.input_dim</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.distribution.GaussianDistribution.mean"><code class="docutils literal notranslate"><span class="pre">GaussianDistribution.mean</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.distribution.GaussianDistribution.std"><code class="docutils literal notranslate"><span class="pre">GaussianDistribution.std</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.distribution.GaussianDistribution.entropy"><code class="docutils literal notranslate"><span class="pre">GaussianDistribution.entropy</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.distribution.GaussianDistribution.params"><code class="docutils literal notranslate"><span class="pre">GaussianDistribution.params</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.distribution.GaussianDistribution.log_prob"><code class="docutils literal notranslate"><span class="pre">GaussianDistribution.log_prob()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.distribution.GaussianDistribution.kl_divergence"><code class="docutils literal notranslate"><span class="pre">GaussianDistribution.kl_divergence()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#rsl_rl.modules.distribution.HeteroscedasticGaussianDistribution"><code class="docutils literal notranslate"><span class="pre">HeteroscedasticGaussianDistribution</span></code></a><ul>
+<li><a class="reference internal" href="#rsl_rl.modules.distribution.HeteroscedasticGaussianDistribution.__init__"><code class="docutils literal notranslate"><span class="pre">HeteroscedasticGaussianDistribution.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.distribution.HeteroscedasticGaussianDistribution.update"><code class="docutils literal notranslate"><span class="pre">HeteroscedasticGaussianDistribution.update()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.distribution.HeteroscedasticGaussianDistribution.deterministic_output"><code class="docutils literal notranslate"><span class="pre">HeteroscedasticGaussianDistribution.deterministic_output()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.distribution.HeteroscedasticGaussianDistribution.as_deterministic_output_module"><code class="docutils literal notranslate"><span class="pre">HeteroscedasticGaussianDistribution.as_deterministic_output_module()</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.distribution.HeteroscedasticGaussianDistribution.input_dim"><code class="docutils literal notranslate"><span class="pre">HeteroscedasticGaussianDistribution.input_dim</span></code></a></li>
+<li><a class="reference internal" href="#rsl_rl.modules.distribution.HeteroscedasticGaussianDistribution.init_mlp_weights"><code class="docutils literal notranslate"><span class="pre">HeteroscedasticGaussianDistribution.init_mlp_weights()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
+    </body>
+</html>
