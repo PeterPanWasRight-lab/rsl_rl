@@ -1,0 +1,246 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" font-family="Consolas, Monaco, monospace">
+  <!-- Background -->
+  <rect width="1200" height="900" fill="#0d1117"/>
+
+  <!-- Title -->
+  <text x="600" y="38" text-anchor="middle" font-size="22" font-weight="bold" fill="#e6edf3">RSL-RL v5.2.0 — 系统架构图</text>
+  <text x="600" y="58" text-anchor="middle" font-size="12" fill="#8b949e">GPU-Accelerated Robotics Reinforcement Learning Library · ETH Zurich &amp; NVIDIA</text>
+
+  <!-- ─────────────────────────────────────────────────────────── -->
+  <!-- Layer 0: External Environment -->
+  <!-- ─────────────────────────────────────────────────────────── -->
+  <rect x="30" y="75" width="1140" height="80" rx="8" fill="none" stroke="#30363d" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="45" y="93" font-size="11" fill="#8b949e">External Simulation Environment  (Isaac Lab / Legged Gym / MuJoCo Playground …)</text>
+
+  <!-- VecEnv abstract box -->
+  <rect x="430" y="98" width="340" height="48" rx="6" fill="#1c2128" stroke="#388bfd" stroke-width="1.5"/>
+  <text x="600" y="117" text-anchor="middle" font-size="13" font-weight="bold" fill="#388bfd">VecEnv  (ABC)</text>
+  <text x="600" y="133" text-anchor="middle" font-size="11" fill="#8b949e">get_observations() → TensorDict  |  step(actions) → (obs, rew, done, extras)</text>
+
+  <!-- ─────────────────────────────────────────────────────────── -->
+  <!-- Layer 1: Runners -->
+  <!-- ─────────────────────────────────────────────────────────── -->
+  <rect x="30" y="175" width="1140" height="90" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <text x="45" y="193" font-size="11" fill="#8b949e">runners/  — 训练调度层</text>
+
+  <!-- OnPolicyRunner -->
+  <rect x="200" y="196" width="340" height="52" rx="6" fill="#1c2128" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="370" y="216" text-anchor="middle" font-size="13" font-weight="bold" fill="#3fb950">OnPolicyRunner</text>
+  <text x="370" y="232" text-anchor="middle" font-size="11" fill="#8b949e">learn()  save()  load()  export_to_jit/onnx()</text>
+  <text x="370" y="246" text-anchor="middle" font-size="10" fill="#6e7681">multi-GPU: torch.distributed / NCCL</text>
+
+  <!-- DistillationRunner -->
+  <rect x="620" y="196" width="340" height="52" rx="6" fill="#1c2128" stroke="#3fb950" stroke-width="1"/>
+  <text x="790" y="216" text-anchor="middle" font-size="13" font-weight="bold" fill="#3fb950">DistillationRunner</text>
+  <text x="790" y="232" text-anchor="middle" font-size="11" fill="#8b949e">inherits OnPolicyRunner</text>
+  <text x="790" y="246" text-anchor="middle" font-size="10" fill="#6e7681">validates teacher loaded before learn()</text>
+
+  <!-- Inheritance arrow -->
+  <line x1="620" y1="222" x2="540" y2="222" stroke="#3fb950" stroke-width="1" stroke-dasharray="4,3"/>
+  <polygon points="542,218 534,222 542,226" fill="#3fb950"/>
+
+  <!-- ─────────────────────────────────────────────────────────── -->
+  <!-- Layer 2: Algorithms -->
+  <!-- ─────────────────────────────────────────────────────────── -->
+  <rect x="30" y="285" width="1140" height="100" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <text x="45" y="303" font-size="11" fill="#8b949e">algorithms/  — 学习算法层</text>
+
+  <!-- PPO -->
+  <rect x="100" y="306" width="430" height="65" rx="6" fill="#1c2128" stroke="#f78166" stroke-width="1.5"/>
+  <text x="315" y="324" text-anchor="middle" font-size="13" font-weight="bold" fill="#f78166">PPO</text>
+  <text x="315" y="340" text-anchor="middle" font-size="11" fill="#8b949e">act()  process_env_step()  compute_returns()  update()</text>
+  <text x="315" y="355" text-anchor="middle" font-size="10" fill="#6e7681">clip_param · GAE(λ) · KL-adaptive lr · entropy bonus · RND · Symmetry</text>
+  <text x="315" y="368" text-anchor="middle" font-size="10" fill="#6e7681">Loss = L_clip + c1·L_vf − c2·H  (+L_rnd +λ·L_sym)</text>
+
+  <!-- Distillation -->
+  <rect x="610" y="306" width="430" height="65" rx="6" fill="#1c2128" stroke="#f78166" stroke-width="1"/>
+  <text x="825" y="324" text-anchor="middle" font-size="13" font-weight="bold" fill="#f78166">Distillation</text>
+  <text x="825" y="340" text-anchor="middle" font-size="11" fill="#8b949e">act()  process_env_step()  update()</text>
+  <text x="825" y="355" text-anchor="middle" font-size="10" fill="#6e7681">Behavior Cloning: L = MSE(student(obs), teacher(obs))</text>
+  <text x="825" y="368" text-anchor="middle" font-size="10" fill="#6e7681">TBPTT: gradient_length steps · teacher frozen (eval mode)</text>
+
+  <!-- ─────────────────────────────────────────────────────────── -->
+  <!-- Layer 3: Storage -->
+  <!-- ─────────────────────────────────────────────────────────── -->
+  <rect x="30" y="405" width="1140" height="80" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <text x="45" y="423" font-size="11" fill="#8b949e">storage/  — 经验缓冲层</text>
+
+  <rect x="330" y="420" width="540" height="56" rx="6" fill="#1c2128" stroke="#d2a8ff" stroke-width="1.5"/>
+  <text x="600" y="438" text-anchor="middle" font-size="13" font-weight="bold" fill="#d2a8ff">RolloutStorage</text>
+  <text x="600" y="454" text-anchor="middle" font-size="11" fill="#8b949e">add_transition(Transition)  |  mini_batch_generator()  |  recurrent_mini_batch_generator()</text>
+  <text x="600" y="468" text-anchor="middle" font-size="10" fill="#6e7681">Buffer: obs · actions · rewards · dones · values · log_prob · dist_params · hidden_states</text>
+
+  <!-- ─────────────────────────────────────────────────────────── -->
+  <!-- Layer 4: Models -->
+  <!-- ─────────────────────────────────────────────────────────── -->
+  <rect x="30" y="505" width="740" height="100" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <text x="45" y="523" font-size="11" fill="#8b949e">models/  — 神经网络模型层（高层封装）</text>
+
+  <!-- MLPModel -->
+  <rect x="50" y="528" width="200" height="65" rx="6" fill="#1c2128" stroke="#ffa657" stroke-width="1.5"/>
+  <text x="150" y="546" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffa657">MLPModel</text>
+  <text x="150" y="561" text-anchor="middle" font-size="10" fill="#8b949e">obs→normalize→MLP→dist</text>
+  <text x="150" y="574" text-anchor="middle" font-size="10" fill="#6e7681">as_jit() / as_onnx()</text>
+  <text x="150" y="587" text-anchor="middle" font-size="10" fill="#6e7681">is_recurrent = False</text>
+
+  <!-- RNNModel -->
+  <rect x="275" y="528" width="200" height="65" rx="6" fill="#1c2128" stroke="#ffa657" stroke-width="1.5"/>
+  <text x="375" y="546" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffa657">RNNModel</text>
+  <text x="375" y="561" text-anchor="middle" font-size="10" fill="#8b949e">obs→normalize→RNN→MLP→dist</text>
+  <text x="375" y="574" text-anchor="middle" font-size="10" fill="#6e7681">GRU/LSTM  hidden state mgmt</text>
+  <text x="375" y="587" text-anchor="middle" font-size="10" fill="#6e7681">is_recurrent = True</text>
+
+  <!-- CNNModel -->
+  <rect x="500" y="528" width="240" height="65" rx="6" fill="#1c2128" stroke="#ffa657" stroke-width="1.5"/>
+  <text x="620" y="546" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffa657">CNNModel</text>
+  <text x="620" y="561" text-anchor="middle" font-size="10" fill="#8b949e">2D_obs→CNN(s)→latent</text>
+  <text x="620" y="574" text-anchor="middle" font-size="10" fill="#6e7681">concat 1D obs → MLP → dist</text>
+  <text x="620" y="587" text-anchor="middle" font-size="10" fill="#6e7681">optional shared CNN encoders</text>
+
+  <!-- Inheritance arrows (MLPModel → RNNModel/CNNModel) -->
+  <line x1="250" y1="560" x2="275" y2="560" stroke="#ffa657" stroke-width="1" stroke-dasharray="3,3"/>
+  <polygon points="273,556 281,560 273,564" fill="#ffa657"/>
+  <line x1="250" y1="560" x2="500" y2="560" stroke="#ffa657" stroke-width="1" stroke-dasharray="3,3"/>
+  <polygon points="498,556 506,560 498,564" fill="#ffa657"/>
+
+  <!-- ─────────────────────────────────────────────────────────── -->
+  <!-- Layer 4 right: Extensions -->
+  <!-- ─────────────────────────────────────────────────────────── -->
+  <rect x="790" y="505" width="380" height="100" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <text x="805" y="523" font-size="11" fill="#8b949e">extensions/  — 算法扩展层</text>
+
+  <!-- RND -->
+  <rect x="810" y="528" width="160" height="65" rx="6" fill="#1c2128" stroke="#79c0ff" stroke-width="1.5"/>
+  <text x="890" y="546" text-anchor="middle" font-size="12" font-weight="bold" fill="#79c0ff">RND</text>
+  <text x="890" y="561" text-anchor="middle" font-size="10" fill="#8b949e">target(frozen) + predictor</text>
+  <text x="890" y="574" text-anchor="middle" font-size="10" fill="#6e7681">intrinsic_reward = ‖t(s)−p(s)‖</text>
+  <text x="890" y="587" text-anchor="middle" font-size="10" fill="#6e7681">weight schedule: const/step/linear</text>
+
+  <!-- Symmetry -->
+  <rect x="990" y="528" width="165" height="65" rx="6" fill="#1c2128" stroke="#79c0ff" stroke-width="1.5"/>
+  <text x="1072" y="546" text-anchor="middle" font-size="12" font-weight="bold" fill="#79c0ff">Symmetry</text>
+  <text x="1072" y="561" text-anchor="middle" font-size="10" fill="#8b949e">data augmentation</text>
+  <text x="1072" y="574" text-anchor="middle" font-size="10" fill="#6e7681">+ mirror loss (MSE)</text>
+  <text x="1072" y="587" text-anchor="middle" font-size="10" fill="#6e7681">feedforward only</text>
+
+  <!-- ─────────────────────────────────────────────────────────── -->
+  <!-- Layer 5: Modules -->
+  <!-- ─────────────────────────────────────────────────────────── -->
+  <rect x="30" y="625" width="740" height="90" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <text x="45" y="643" font-size="11" fill="#8b949e">modules/  — 神经网络基础构件层</text>
+
+  <rect x="50" y="650" width="110" height="52" rx="5" fill="#1c2128" stroke="#56d364" stroke-width="1.2"/>
+  <text x="105" y="668" text-anchor="middle" font-size="11" font-weight="bold" fill="#56d364">MLP</text>
+  <text x="105" y="682" text-anchor="middle" font-size="10" fill="#8b949e">nn.Sequential</text>
+  <text x="105" y="695" text-anchor="middle" font-size="10" fill="#6e7681">ortho init</text>
+
+  <rect x="180" y="650" width="110" height="52" rx="5" fill="#1c2128" stroke="#56d364" stroke-width="1.2"/>
+  <text x="235" y="668" text-anchor="middle" font-size="11" font-weight="bold" fill="#56d364">RNN</text>
+  <text x="235" y="682" text-anchor="middle" font-size="10" fill="#8b949e">GRU / LSTM</text>
+  <text x="235" y="695" text-anchor="middle" font-size="10" fill="#6e7681">hidden state</text>
+
+  <rect x="310" y="650" width="110" height="52" rx="5" fill="#1c2128" stroke="#56d364" stroke-width="1.2"/>
+  <text x="365" y="668" text-anchor="middle" font-size="11" font-weight="bold" fill="#56d364">CNN</text>
+  <text x="365" y="682" text-anchor="middle" font-size="10" fill="#8b949e">Conv2d stack</text>
+  <text x="365" y="695" text-anchor="middle" font-size="10" fill="#6e7681">Kaiming init</text>
+
+  <rect x="440" y="650" width="140" height="52" rx="5" fill="#1c2128" stroke="#56d364" stroke-width="1.2"/>
+  <text x="510" y="668" text-anchor="middle" font-size="11" font-weight="bold" fill="#56d364">Distribution</text>
+  <text x="510" y="682" text-anchor="middle" font-size="10" fill="#8b949e">Gaussian / HeteroGauss</text>
+  <text x="510" y="695" text-anchor="middle" font-size="10" fill="#6e7681">sample · log_prob · KL</text>
+
+  <rect x="600" y="650" width="150" height="52" rx="5" fill="#1c2128" stroke="#56d364" stroke-width="1.2"/>
+  <text x="675" y="668" text-anchor="middle" font-size="11" font-weight="bold" fill="#56d364">Normalization</text>
+  <text x="675" y="682" text-anchor="middle" font-size="10" fill="#8b949e">EmpiricalNorm</text>
+  <text x="675" y="695" text-anchor="middle" font-size="10" fill="#6e7681">DiscountedVarNorm</text>
+
+  <!-- ─────────────────────────────────────────────────────────── -->
+  <!-- Layer 5 right: Utils -->
+  <!-- ─────────────────────────────────────────────────────────── -->
+  <rect x="790" y="625" width="380" height="90" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <text x="805" y="643" font-size="11" fill="#8b949e">utils/  — 工具层</text>
+
+  <rect x="810" y="650" width="165" height="52" rx="5" fill="#1c2128" stroke="#56d364" stroke-width="1.2"/>
+  <text x="892" y="668" text-anchor="middle" font-size="11" font-weight="bold" fill="#56d364">Logger</text>
+  <text x="892" y="682" text-anchor="middle" font-size="10" fill="#8b949e">TensorBoard / W&amp;B / Neptune</text>
+  <text x="892" y="695" text-anchor="middle" font-size="10" fill="#6e7681">git diff · model upload</text>
+
+  <rect x="990" y="650" width="165" height="52" rx="5" fill="#1c2128" stroke="#56d364" stroke-width="1.2"/>
+  <text x="1072" y="668" text-anchor="middle" font-size="11" font-weight="bold" fill="#56d364">utils.py</text>
+  <text x="1072" y="682" text-anchor="middle" font-size="10" fill="#8b949e">resolve_callable · obs_groups</text>
+  <text x="1072" y="695" text-anchor="middle" font-size="10" fill="#6e7681">pad/unpad trajectories</text>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- Data-flow arrows (vertical, between layers) -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+
+  <!-- VecEnv → Runner (obs/rew/done) -->
+  <line x1="600" y1="146" x2="600" y2="196" stroke="#388bfd" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="605" y="175" font-size="9" fill="#388bfd">obs · rew · done · extras</text>
+
+  <!-- Runner → Algorithm (act / process_env_step / compute_returns / update) -->
+  <line x1="370" y1="248" x2="315" y2="306" stroke="#3fb950" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="790" y1="248" x2="825" y2="306" stroke="#3fb950" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="285" y="282" font-size="9" fill="#3fb950">act(obs)</text>
+  <text x="285" y="293" font-size="9" fill="#3fb950">update()</text>
+
+  <!-- Algorithm → Storage -->
+  <line x1="315" y1="371" x2="500" y2="420" stroke="#f78166" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="825" y1="371" x2="700" y2="420" stroke="#f78166" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="370" y="406" font-size="9" fill="#f78166">add_transition()</text>
+  <text x="710" y="406" font-size="9" fill="#f78166">mini_batch_gen()</text>
+
+  <!-- Algorithm → Models -->
+  <line x1="315" y1="371" x2="200" y2="528" stroke="#ffa657" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr-orange)"/>
+  <text x="205" y="465" font-size="9" fill="#ffa657">actor / critic</text>
+  <text x="205" y="476" font-size="9" fill="#ffa657">forward(obs)</text>
+
+  <!-- Algorithm → Extensions (PPO only) -->
+  <line x1="530" y1="335" x2="810" y2="540" stroke="#79c0ff" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arr-lblue)"/>
+  <text x="660" y="450" font-size="9" fill="#79c0ff">rnd_cfg / symmetry_cfg</text>
+
+  <!-- Models → Modules -->
+  <line x1="150" y1="593" x2="105" y2="650" stroke="#ffa657" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arr-orange)"/>
+  <line x1="375" y1="593" x2="235" y2="650" stroke="#ffa657" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arr-orange)"/>
+  <line x1="620" y1="593" x2="365" y2="650" stroke="#ffa657" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arr-orange)"/>
+
+  <!-- Runner → Logger -->
+  <line x1="540" y1="222" x2="892" y2="650" stroke="#56d364" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arr-dgreen)"/>
+  <text x="750" y="430" font-size="9" fill="#56d364">log(losses · rewards · fps)</text>
+
+  <!-- ─────────────────────────────────────────────────────────── -->
+  <!-- PPO Training Loop annotation box -->
+  <!-- ─────────────────────────────────────────────────────────── -->
+  <rect x="30" y="740" width="560" height="145" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <text x="45" y="760" font-size="12" font-weight="bold" fill="#e6edf3">PPO 训练循环（OnPolicyRunner.learn）</text>
+  <text x="45" y="780" font-size="11" fill="#8b949e">for iteration in range(total_iterations):</text>
+  <text x="60" y="795" font-size="11" fill="#8b949e">  ① [inference_mode] for step in range(num_steps_per_env):</text>
+  <text x="75" y="810" font-size="11" fill="#8b949e">      actions = ppo.act(obs)              # actor forward, store transition</text>
+  <text x="75" y="825" font-size="11" fill="#8b949e">      obs, rew, done, info = env.step(actions)</text>
+  <text x="75" y="840" font-size="11" fill="#8b949e">      ppo.process_env_step(obs,rew,done,info)  # bootstrap timeout + RND</text>
+  <text x="60" y="855" font-size="11" fill="#8b949e">  ② ppo.compute_returns(obs)            # GAE advantage estimation</text>
+  <text x="60" y="870" font-size="11" fill="#8b949e">  ③ loss_dict = ppo.update()            # K epochs × M mini-batches</text>
+
+  <!-- ─────────────────────────────────────────────────────────── -->
+  <!-- Distillation Loop annotation box -->
+  <!-- ─────────────────────────────────────────────────────────── -->
+  <rect x="610" y="740" width="560" height="145" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <text x="625" y="760" font-size="12" font-weight="bold" fill="#e6edf3">Distillation 训练循环（DistillationRunner.learn）</text>
+  <text x="625" y="780" font-size="11" fill="#8b949e">前置：runner.load(RL_checkpoint) → 加载 actor → teacher</text>
+  <text x="625" y="795" font-size="11" fill="#8b949e">for iteration in range(total_iterations):</text>
+  <text x="640" y="810" font-size="11" fill="#8b949e">  ① [inference_mode] for step in range(num_steps_per_env):</text>
+  <text x="655" y="825" font-size="11" fill="#8b949e">      actions = dist.act(obs)  # student(obs) + teacher(obs) stored</text>
+  <text x="655" y="840" font-size="11" fill="#8b949e">      obs, rew, done, info = env.step(actions)</text>
+  <text x="640" y="855" font-size="11" fill="#8b949e">  ② loss_dict = dist.update()   # TBPTT on sequence, BC loss only</text>
+  <text x="640" y="870" font-size="11" fill="#8b949e">  ③ export student → policy.pt / policy.onnx</text>
+
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arr-blue"   markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#388bfd"/></marker>
+    <marker id="arr-green"  markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#3fb950"/></marker>
+    <marker id="arr-red"    markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#f78166"/></marker>
+    <marker id="arr-orange" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#ffa657"/></marker>
+    <marker id="arr-lblue"  markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#79c0ff"/></marker>
+    <marker id="arr-dgreen" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#56d364"/></marker>
+  </defs>
+</svg>

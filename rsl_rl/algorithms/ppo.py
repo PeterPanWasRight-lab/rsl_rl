@@ -79,25 +79,26 @@ class PPO:
             raise ValueError("Symmetry augmentation is not supported for recurrent policies.")
         self.symmetry = Symmetry(**symmetry_cfg) if symmetry_cfg else None
 
-        # PPO components
+        # ======PPO components=======
         self.actor = actor.to(self.device)
         self.critic = critic.to(self.device)
 
         # Handles to the uncompiled modules for state_dict operations and export. If compilation is disabled, these
-        # simply alias ``self.actor`` / ``self.critic``.
+        # simply alias ``self.actor`` / ``self.critic``. 
+        # 用于state_dict操作和导出，如果禁用编译，则它们将简单地别名为self.actor / self.critic。
         self._raw_actor = self.actor
         self._raw_critic = self.critic
 
-        # Create the optimizer
+        # =======Create the optimizer======
         self.optimizer = resolve_optimizer(optimizer)(
             chain(self.actor.parameters(), self.critic.parameters()), lr=learning_rate
         )  # type: ignore
 
-        # Add storage
+        # =======Add storage======
         self.storage = storage
         self.transition = RolloutStorage.Transition()
 
-        # PPO parameters
+        # ========PPO parameters======
         self.clip_param = clip_param
         self.num_learning_epochs = num_learning_epochs
         self.num_mini_batches = num_mini_batches
