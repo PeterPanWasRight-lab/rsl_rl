@@ -163,6 +163,8 @@ class PPO:
 
     def compute_returns(self, obs: TensorDict) -> None:
         """Compute return and advantage targets from stored transitions."""
+        # 只有跑完一个rollout才能得到一个轨迹上每一个时间点的return和Advantage 
+        # λ = 1  蒙特卡洛   λ = 0  时序差分
         st = self.storage
         # Compute value for the last step
         last_values = self.critic(obs).detach()
@@ -199,9 +201,9 @@ class PPO:
         if self.actor.is_recurrent or self.critic.is_recurrent:
             generator = self.storage.recurrent_mini_batch_generator(self.num_mini_batches, self.num_learning_epochs)
         else:
-            generator = self.storage.mini_batch_generator(self.num_mini_batches, self.num_learning_epochs)
+            generator = self.storage.mini_batch_generator(self.num_mini_batches, self.num_learning_epochs)  # num_learning_epochs代表学几轮
 
-        # Iterate over mini-batches
+        # Iterate over mini-batches   生成器类型中有__iter__方法，可以迭代, __iter__内部有next(generator)的操作，获取下一个yield返回
         for batch in generator:
             original_batch_size = batch.observations.batch_size[0]
 

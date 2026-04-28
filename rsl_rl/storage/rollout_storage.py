@@ -176,7 +176,7 @@ class RolloutStorage:
         # Core
         self.observations[self.step].copy_(transition.observations)
         self.actions[self.step].copy_(transition.actions)  # type: ignore
-        self.rewards[self.step].copy_(transition.rewards.view(-1, 1))
+        self.rewards[self.step].copy_(transition.rewards.view(-1, 1))   # 等效于numpy reshape()
         self.dones[self.step].copy_(transition.dones.view(-1, 1))
 
         # For distillation
@@ -224,11 +224,18 @@ class RolloutStorage:
         if self.training_type != "rl":
             raise ValueError("This function is only available for reinforcement learning training.")
         batch_size = self.num_envs * self.num_transitions_per_env
-        mini_batch_size = batch_size // num_mini_batches
+        mini_batch_size = batch_size // num_mini_batches   # 整除
         indices = torch.randperm(num_mini_batches * mini_batch_size, requires_grad=False, device=self.device)
+        # torch.randperm(n)：生成0到n-1的随机排列, 例如：torch.randperm(4)可能返回 [2, 0, 3, 1]
 
         # Flatten the data
-        observations = self.observations.flatten(0, 1)
+        ## observations记录critic网络和actor网络的输入（观测，比如关节角度等，对应数学公式里的s）
+        ## actions记录了actor网络的输出，对应数学公式的a； values记录了当前步的critic的输出，对应数学公式里的v(s)
+        ## returns记录了当前步的retrun=G_t  到轨迹末尾（注意不是batch末尾，在batch里面的数据已经是之前理好的）
+        ### λ=1时 G_t =  r_t + γ·r_{t+1} + γ²·r_{t+2} + ... +； λ=0时 G_t = r_t + γ·V(s_{t+1})
+        ## advantages记录了当前步的 A_t = ∑_{l=0}^{∞} (γλ)^l δ_{t+l}，其中δ_t = r_t + γ·V(s_{t+1}) - V(s_t)
+        ## https://my.feishu.cn/docx/FlZndnhKTozJDTxcPBjcBRBdnUb?from=from_copylink
+        observations = self.observations.flatten(0, 1)  # [num_envs, num_steps, obs_dim]→ [total_samples, obs_dim] 从第0维到第1维合并成一个新的维度，其他维度保持不变；索引按树结构排列
         actions = self.actions.flatten(0, 1)
         values = self.values.flatten(0, 1)
         returns = self.returns.flatten(0, 1)
@@ -236,16 +243,16 @@ class RolloutStorage:
         advantages = self.advantages.flatten(0, 1)
         old_distribution_params = tuple(p.flatten(0, 1) for p in self.distribution_params)  # type: ignore
 
-        for epoch in range(num_epochs):
+        for epoch in range(num_epochs):    # 纯粹重复了num_epochs次
             for i in range(num_mini_batches):
                 # Select the indices for the mini-batch
                 start = i * mini_batch_size
                 stop = (i + 1) * mini_batch_size
-                batch_idx = indices[start:stop]
+                batch_idx = indices[start:stop]  # 随机选择mini_batch_size个样本
 
                 # Yield the mini-batch
                 yield RolloutStorage.Batch(
-                    observations=observations[batch_idx],  # type: ignore
+                    observations=observations[batch_idx],  # type: ignore  直接操作到TensorDict中的'policy'和'critic'
                     actions=actions[batch_idx],
                     values=values[batch_idx],
                     advantages=advantages[batch_idx],

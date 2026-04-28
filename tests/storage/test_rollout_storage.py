@@ -34,15 +34,15 @@ def _fill_with_identifiable_data(storage: RolloutStorage, obs: TensorDict) -> di
     stored = {}
     for step in range(NUM_STEPS):
         t = RolloutStorage.Transition()
-        t.observations = obs
+        t.observations = obs  # reference还是copy？  refence 这节省内存，但需要小心处理
         t.hidden_states = (None, None)
         # Use step-based values so each transition is identifiable
         t.actions = torch.full((NUM_ENVS, NUM_ACTIONS), float(step))
         t.values = torch.full((NUM_ENVS, 1), float(step) * 10)
         t.actions_log_prob = torch.full((NUM_ENVS,), float(step) * 0.1)
         t.distribution_params = (
-            torch.full((NUM_ENVS, NUM_ACTIONS), float(step)),
-            torch.full((NUM_ENVS, NUM_ACTIONS), 1.0),
+            torch.full((NUM_ENVS, NUM_ACTIONS), float(step)),  # 单步mean
+            torch.full((NUM_ENVS, NUM_ACTIONS), 1.0),          # 单步log_std
         )
         t.rewards = torch.full((NUM_ENVS,), float(step) * 100)
         t.dones = torch.zeros(NUM_ENVS)
@@ -71,18 +71,19 @@ class TestMiniBatchGenerator:
         num_mini_batches = 4
         batch_size = NUM_ENVS * NUM_STEPS
         mini_batch_size = batch_size // num_mini_batches
+        num_epochs = 3
 
         all_actions = []
         batch_count = 0
-        for batch in storage.mini_batch_generator(num_mini_batches, num_epochs=1):
+        for batch in storage.mini_batch_generator(num_mini_batches, num_epochs=num_epochs):
             all_actions.append(batch.actions)
             batch_count += 1
 
-        assert batch_count == num_mini_batches
+        assert batch_count == num_mini_batches*num_epochs
 
         collected = torch.cat(all_actions, dim=0)
         expected_count = num_mini_batches * mini_batch_size
-        assert collected.shape[0] == expected_count
+        assert collected.shape[0] == expected_count*num_epochs
 
         # Check all unique action values from the stored transitions appear
         flat_stored = storage.actions.flatten(0, 1)

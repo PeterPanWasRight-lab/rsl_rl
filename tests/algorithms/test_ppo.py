@@ -73,6 +73,9 @@ class TestGAEComputation:
         num_envs, num_steps = 1, 3
         gamma, lam = 0.99, 0.95
 
+        import sys
+        print(f"\n==============测试{sys.executable}")
+        
         obs = make_obs(num_envs, OBS_DIM)
         obs_groups = {"actor": ["policy"], "critic": ["policy"]}
         actor = _make_actor(obs, obs_groups, NUM_ACTIONS)
