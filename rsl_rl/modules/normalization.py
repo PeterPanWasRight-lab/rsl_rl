@@ -28,25 +28,31 @@ class EmpiricalNormalization(nn.Module):
         super().__init__()
         self.eps = eps
         self.until = until
-        self.register_buffer("_mean", torch.zeros(shape).unsqueeze(0))
-        self.register_buffer("_var", torch.ones(shape).unsqueeze(0))
+        self.register_buffer("_mean", torch.zeros(shape).unsqueeze(0))  # 在第0维增加一个维度
+        self.register_buffer("_var", torch.ones(shape).unsqueeze(0))    # 在外部调用 norm._var
         self.register_buffer("_std", torch.ones(shape).unsqueeze(0))
         self.register_buffer("count", torch.tensor(0, dtype=torch.long))
+        ## 可以register的类型还有以下：
+        ## self.register_module("_mean", nn.linear(1, 1))     # 底层就是调用add_module代码
+        ## self.register_parameter("_mean", nn.Parameter(torch.zeros(shape).unsqueeze(0)))  # 可训练参数
 
     @property
     def mean(self) -> torch.Tensor:
         """Return the current running mean."""
-        return self._mean.squeeze(0).clone()  # type: ignore
+        return self._mean.squeeze(0).clone()  # type: ignore  去除第0维  .squeeze():去除所有长度为1的维度（没有元素就是长度为1）
 
     @property
     def std(self) -> torch.Tensor:
         """Return the current running standard deviation."""
         return self._std.squeeze(0).clone()
 
-    def forward(self, x: torch.Tensor) -> torch.Tensor:
+    def forward(self, x: torch.Tensor) -> torch.Tensor:  # __call__
         """Normalize mean and variance of values based on empirical values."""
         return (x - self._mean) / (self._std + self.eps)
 
+    # TorchScript 是 PyTorch 的即时编译（JIT）系统，它允许将 PyTorch 模型转换为一个可序列化、可优化的中间表示，可以在没有 Python 依赖的环境中高效运行 就是我们说的.pt文件
+    # 用于告诉 TorchScript 编译器在编译模型时忽略被装饰的方法或函数 被装饰的方法在 TorchScript 模型中完全不存在，调用会引发 AttributeError
+    # @torch.jit.ignore, 则是仍然保留在编译图中，但调用会抛出异常  一般用于调试或版本迁移
     @torch.jit.unused
     def update(self, x: torch.Tensor) -> None:
         """Learn input values without computing the output values of them."""

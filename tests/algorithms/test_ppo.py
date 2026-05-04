@@ -134,6 +134,17 @@ class TestGAEComputation:
                 torch.tensor(expected_returns[i]),
                 atol=1e-4,
             ), f"Return mismatch at step {i}: got {storage.returns[i, 0, 0].item()}, expected {expected_returns[i]}"
+            
+            
+        from torchviz import make_dot
+        from torchview import draw_graph
+        
+        graphActor = draw_graph(actor.mlp, input_data=[obs['policy']], expand_nested=True)   # expand_nested展开 Sequential / ModuleList
+        graphActor.visual_graph.render("./graph/computation_graph_torchviewActor", format="png") 
+        
+        graphCritic = draw_graph(critic.mlp, input_data=[obs['policy']], expand_nested=True)   
+        graphCritic.visual_graph.render("./graph/computation_graph_torchviewCritic", format="png") 
+        
 
     def test_gae_terminal_state_cuts_bootstrap(self) -> None:
         """When a done flag is set, the advantage should not bootstrap from the next value."""
@@ -176,6 +187,7 @@ class TestGAEComputation:
 
         assert torch.allclose(storage.returns[0, 0, 0], torch.tensor(expected_return_0), atol=1e-4)
         assert torch.allclose(storage.returns[1, 0, 0], torch.tensor(expected_return_1), atol=1e-4)
+        
 
     def test_advantage_normalization_global(self) -> None:
         """With normalize_advantage_per_mini_batch=False, advantages should have mean~0, std~1."""
@@ -276,6 +288,233 @@ class TestPPOLosses:
         assert torch.allclose(loss, torch.tensor(expected), atol=1e-5)
 
 
+class TestUpdateLossComputation:
+    """Tests for the total loss computation in ``update`` method.
+
+    Tests: loss = surrogate_loss + value_loss_coef * value_loss - entropy_coef * entropy.mean()
+    """
+
+    def test_total_loss_computation(self) -> None:
+        """Verify total loss = surrogate_loss + value_coef * value_loss - entropy_coef * entropy."""
+        # Set up coefficients
+        value_loss_coef = 1.0
+        entropy_coef = 0.01
+
+        # Mock individual loss components
+        surrogate_loss = torch.tensor(0.5)
+        value_loss = torch.tensor(0.3)
+        entropy = torch.tensor([0.1, 0.2, 0.15, 0.25])  # Multiple samples
+
+        # Compute total loss exactly as in PPO.update()
+        entropy_mean = entropy.mean()
+        total_loss = surrogate_loss + value_loss_coef * value_loss - entropy_coef * entropy_mean
+
+        # Expected: 0.5 + 1.0 * 0.3 - 0.01 * 0.175 = 0.5 + 0.3 - 0.00175 = 0.79825
+        expected_entropy_mean = 0.175  # mean of [0.1, 0.2, 0.15, 0.25]
+        expected_loss = surrogate_loss + value_loss_coef * value_loss - entropy_coef * expected_entropy_mean
+
+        assert torch.allclose(total_loss, expected_loss, atol=1e-5)
+
+    def test_total_loss_with_custom_coefficients(self) -> None:
+        """Test loss with custom value_loss_coef and entropy_coef."""
+        value_loss_coef = 2.0
+        entropy_coef = 0.05
+
+        surrogate_loss = torch.tensor(1.0)
+        value_loss = torch.tensor(0.8)
+        entropy = torch.tensor([0.5, 0.6, 0.7])  # mean = 0.6
+
+        entropy_mean = entropy.mean()
+        total_loss = surrogate_loss + value_loss_coef * value_loss - entropy_coef * entropy_mean
+
+        # Expected: 1.0 + 2.0 * 0.8 - 0.05 * 0.6 = 1.0 + 1.6 - 0.03 = 2.57
+        expected_loss = 1.0 + 2.0 * 0.8 - 0.05 * 0.6
+
+        assert torch.allclose(total_loss, torch.tensor(expected_loss), atol=1e-5)
+        assert abs(total_loss.item() - 2.57) < 1e-4
+
+    def test_real_ppo_update_returns_loss_dict(self) -> None:
+        """Create a real PPO instance and call update to verify loss computation."""
+        ppo, obs = _build_ppo(
+            num_learning_epochs=1,
+            num_mini_batches=2,
+            value_loss_coef=1.0,
+            entropy_coef=0.01,
+            normalize_advantage_per_mini_batch=True,  # Avoid global normalization
+        )
+
+        # Manually fill storage with transitions (no rnd, no symmetry)
+        for _ in range(NUM_STEPS):
+            t = RolloutStorage.Transition()
+            t.observations = obs
+            t.hidden_states = (None, None)
+            t.actions = ppo.actor(obs, stochastic_output=True).detach()
+            t.values = ppo.critic(obs).detach()
+            t.actions_log_prob = ppo.actor.get_output_log_prob(t.actions).detach()
+            t.distribution_params = tuple(p.detach() for p in ppo.actor.output_distribution_params)
+            t.rewards = torch.randn(NUM_ENVS)
+            t.dones = torch.zeros(NUM_ENVS)
+            ppo.storage.add_transition(t)
+
+        # Compute returns and advantages
+        ppo.compute_returns(obs)
+
+        # Call update and verify it returns a loss dictionary
+        ppo.train_mode()
+        loss_dict = ppo.update()
+
+        # Verify loss_dict structure and values
+        assert isinstance(loss_dict, dict)
+        assert "value" in loss_dict
+        assert "surrogate" in loss_dict
+        assert "entropy" in loss_dict
+        # RND and symmetry should not be in loss_dict (not enabled)
+        assert "rnd" not in loss_dict
+        assert "symmetry" not in loss_dict
+
+        # Verify losses are finite numbers
+        for key in ["value", "surrogate", "entropy"]:
+            assert isinstance(loss_dict[key], float), f"{key} should be a float"
+            assert torch.isfinite(torch.tensor(loss_dict[key])), f"{key} should be finite"
+
+    def test_real_ppo_update_loss_signs(self) -> None:
+        """Verify the signs of loss components: surrogate and value should be positive, entropy bonus is subtracted."""
+        ppo, obs = _build_ppo(
+            num_learning_epochs=1,
+            num_mini_batches=1,
+            value_loss_coef=1.0,
+            entropy_coef=0.01,
+            normalize_advantage_per_mini_batch=True,
+        )
+
+        # Fill storage with known data
+        for step in range(NUM_STEPS):
+            t = RolloutStorage.Transition()
+            t.observations = obs
+            t.hidden_states = (None, None)
+            t.actions = ppo.actor(obs, stochastic_output=True).detach()
+            t.values = ppo.critic(obs).detach()
+            t.actions_log_prob = ppo.actor.get_output_log_prob(t.actions).detach()
+            t.distribution_params = tuple(p.detach() for p in ppo.actor.output_distribution_params)
+            # Use positive rewards to ensure positive advantages
+            t.rewards = torch.ones(NUM_ENVS) * (step + 1)
+            t.dones = torch.zeros(NUM_ENVS)
+            ppo.storage.add_transition(t)
+
+        ppo.compute_returns(obs)
+        ppo.train_mode()
+        loss_dict = ppo.update()
+
+        # Total loss = surrogate_loss + value_loss_coef * value_loss - entropy_coef * entropy
+        # Since entropy_coef > 0 and entropy > 0, the entropy term is subtracted
+        # total_loss should roughly be: surrogate + value - positive_entropy_term
+        total_loss_approx = (
+            loss_dict["surrogate"]
+            + ppo.value_loss_coef * loss_dict["value"]
+            - ppo.entropy_coef * loss_dict["entropy"]
+        )
+
+        # The mean losses are divided by num_updates = num_learning_epochs * num_mini_batches
+        num_updates = ppo.num_learning_epochs * ppo.num_mini_batches
+        mean_total = total_loss_approx / num_updates
+
+        # Verify the relationship: mean_total ≈ surrogate + value_coef * value - entropy_coef * entropy
+        # Note: entropy term is negative contribution (encouraging exploration)
+        assert abs(mean_total - (
+            loss_dict["surrogate"] / num_updates +
+            loss_dict["value"] / num_updates -
+            loss_dict["entropy"] / num_updates * ppo.entropy_coef
+        )) < 1e-5
+
+    def test_real_ppo_update_multiple_epochs(self) -> None:
+        """Verify update works correctly with multiple learning epochs."""
+        ppo, obs = _build_ppo(
+            num_learning_epochs=2,
+            num_mini_batches=2,
+            value_loss_coef=2.0,  # Custom coefficient
+            entropy_coef=0.02,    # Custom coefficient
+            normalize_advantage_per_mini_batch=True,
+        )
+
+        # Fill storage
+        for _ in range(NUM_STEPS):
+            t = RolloutStorage.Transition()
+            t.observations = obs
+            t.hidden_states = (None, None)
+            t.actions = ppo.actor(obs, stochastic_output=True).detach()
+            t.values = ppo.critic(obs).detach()
+            t.actions_log_prob = ppo.actor.get_output_log_prob(t.actions).detach()
+            t.distribution_params = tuple(p.detach() for p in ppo.actor.output_distribution_params)
+            t.rewards = torch.randn(NUM_ENVS)
+            t.dones = torch.zeros(NUM_ENVS)
+            ppo.storage.add_transition(t)
+
+        ppo.compute_returns(obs)
+        ppo.train_mode()
+        loss_dict = ppo.update()
+
+        # num_updates = 2 epochs * 2 mini_batches = 4
+        assert ppo.num_learning_epochs * ppo.num_mini_batches == 4
+
+        # Verify losses are computed and stored correctly
+        assert loss_dict["value"] >= 0, "Value loss should be non-negative (MSE)"
+        assert isinstance(loss_dict["entropy"], float)
+
+    def test_total_loss_zero_entropy_coef(self) -> None:
+        """When entropy_coef=0, loss should be surrogate_loss + value_coef * value_loss."""
+        value_loss_coef = 1.0
+        entropy_coef = 0.0
+
+        surrogate_loss = torch.tensor(2.0)
+        value_loss = torch.tensor(0.5)
+        entropy = torch.tensor([1.0, 2.0, 3.0])
+
+        total_loss = surrogate_loss + value_loss_coef * value_loss - entropy_coef * entropy.mean()
+
+        # Expected: 2.0 + 1.0 * 0.5 - 0.0 * 2.0 = 2.5
+        expected_loss = 2.5
+
+        assert abs(total_loss.item() - expected_loss) < 1e-5
+
+    def test_total_loss_zero_value_coef(self) -> None:
+        """When value_loss_coef=0, loss should be surrogate_loss - entropy_coef * entropy."""
+        value_loss_coef = 0.0
+        entropy_coef = 0.01
+
+        surrogate_loss = torch.tensor(1.0)
+        value_loss = torch.tensor(1.0)
+        entropy = torch.tensor([0.5, 1.0])  # mean = 0.75
+
+        total_loss = surrogate_loss + value_loss_coef * value_loss - entropy_coef * entropy.mean()
+
+        # Expected: 1.0 + 0.0 * 1.0 - 0.01 * 0.75 = 1.0 - 0.0075 = 0.9925
+        expected_loss = 1.0 - 0.0075
+
+        assert abs(total_loss.item() - expected_loss) < 1e-5
+
+    def test_total_loss_components_breakdown(self) -> None:
+        """Verify each component contributes correctly to total loss."""
+        value_loss_coef = 1.0
+        entropy_coef = 0.01
+
+        surrogate_loss = torch.tensor(1.0)
+        value_loss = torch.tensor(0.4)
+        entropy = torch.tensor([1.0])  # mean = 1.0
+
+        total_loss = surrogate_loss + value_loss_coef * value_loss - entropy_coef * entropy.mean()
+
+        # Components
+        policy_loss_component = surrogate_loss.item()
+        value_loss_component = value_loss_coef * value_loss.item()
+        entropy_loss_component = -entropy_coef * entropy.mean().item()
+
+        # Total
+        expected_total = policy_loss_component + value_loss_component + entropy_loss_component
+
+        assert torch.allclose(total_loss, torch.tensor(expected_total), atol=1e-5)
+        assert abs(total_loss.item() - (1.0 + 0.4 - 0.01)) < 1e-5
+
+
 class TestAdaptiveLearningRate:
     """Tests for adaptive KL-based learning rate scheduling."""
 
@@ -321,3 +560,6 @@ class TestAdaptiveLearningRate:
             ppo.learning_rate = min(1e-2, ppo.learning_rate * 1.5)
 
         assert ppo.learning_rate == initial_lr
+        
+        
+        

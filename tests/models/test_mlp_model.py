@@ -35,7 +35,7 @@ def _make_mlp_model(stochastic: bool = False, obs_set: str = "actor", **kwargs: 
         }
     defaults.update(kwargs)
     output_dim = NUM_ACTIONS if stochastic else 1
-    model = MLPModel(obs, OBS_GROUPS, obs_set, output_dim, **defaults)
+    model = MLPModel(obs, OBS_GROUPS, obs_set, output_dim, **defaults)  # 解包
     return model, obs
 
 

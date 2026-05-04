@@ -165,7 +165,7 @@ def resolve_callable(callable_or_name: type | Callable | str) -> Callable:
     for _, module_name, _ in pkgutil.iter_modules(rsl_rl.__path__, "rsl_rl."):
         module = importlib.import_module(module_name)
         if hasattr(module, callable_or_name):
-            return getattr(module, callable_or_name)
+            return getattr(module, callable_or_name)  # getattr利用字符串获取属性
 
     # Raise error if no approach worked
     raise ValueError(

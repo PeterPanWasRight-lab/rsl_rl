@@ -45,11 +45,11 @@ class PPO:
         entropy_coef: float = 0.01,
         learning_rate: float = 0.001,
         max_grad_norm: float = 1.0,
-        optimizer: str = "adam",
+        optimizer: str = "adam",      # torch自带的adam优化器
         use_clipped_value_loss: bool = True,
-        schedule: str = "adaptive",
+        schedule: str = "adaptive",   # 学习率调度策略，默认是自适应的，可以选择固定学习率
         desired_kl: float = 0.01,
-        normalize_advantage_per_mini_batch: bool = False,
+        normalize_advantage_per_mini_batch: bool = False,   # 是否对优势A进行归一化
         device: str = "cpu",
         # RND parameters
         rnd_cfg: dict | None = None,
@@ -59,6 +59,7 @@ class PPO:
         multi_gpu_cfg: dict | None = None,
     ) -> None:
         """Initialize the algorithm with models, storage, and optimization settings."""
+        self.isFirstUpdate = True
         # Device-related parameters
         self.device = device
         self.is_multi_gpu = multi_gpu_cfg is not None
@@ -67,7 +68,7 @@ class PPO:
         if multi_gpu_cfg is not None:
             self.gpu_global_rank = multi_gpu_cfg["global_rank"]
             self.gpu_world_size = multi_gpu_cfg["world_size"]
-        else:
+        else:    # 一般是单卡就够
             self.gpu_global_rank = 0
             self.gpu_world_size = 1
 
@@ -92,7 +93,10 @@ class PPO:
         # =======Create the optimizer======
         self.optimizer = resolve_optimizer(optimizer)(
             chain(self.actor.parameters(), self.critic.parameters()), lr=learning_rate
-        )  # type: ignore
+        )  # type: ignore  
+        # ​optimizer.step()→ 同时更新​ Actor 和 Critic 的参数    对于后面的 loss = lossaction + lossCritic 更新时，同时更新两者参数；否则，先更新 Actor 的参数，再更新 Critic 的参数
+        # 理论上也可以分开，只要自己把控好更新的时间节点，就可以分开更新。
+        # 但分开会在不经意之间造成，由于时滞导致的相互拉扯。 当你明确希望两个网络的学习速度完全不同，且不希望它们的梯度互相干扰时，可以分开优化。
 
         # =======Add storage======
         self.storage = storage
@@ -316,6 +320,13 @@ class PPO:
             # Symmetry loss
             if mean_symmetry_loss is not None:
                 mean_symmetry_loss += symmetry_loss.item()
+                
+            # === 首次调用时，绘制计算图
+            if self.isFirstUpdate:
+                self.isFirstUpdate = False
+                from torchviz import make_dot
+                dot = make_dot(loss)
+                dot.render("./graph/ppo_loss", format="png")
 
         # Divide the losses by the number of updates
         num_updates = self.num_learning_epochs * self.num_mini_batches

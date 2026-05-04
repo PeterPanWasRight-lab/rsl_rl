@@ -11,7 +11,7 @@ from tensordict import TensorDict
 def make_obs(num_envs: int, obs_dim: int = 8, device: str = "cpu") -> TensorDict:
     """Create an observation TensorDict with a single 'policy' key."""
     return TensorDict(
-        {   "critic": torch.randn(num_envs, obs_dim+3, device=device),  # 随便给的维度
+        { 
             "policy": torch.randn(num_envs, obs_dim, device=device)},
         batch_size=[num_envs],
         device=device,

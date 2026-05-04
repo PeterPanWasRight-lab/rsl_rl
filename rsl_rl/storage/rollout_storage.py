@@ -235,6 +235,7 @@ class RolloutStorage:
         ### λ=1时 G_t =  r_t + γ·r_{t+1} + γ²·r_{t+2} + ... +； λ=0时 G_t = r_t + γ·V(s_{t+1})
         ## advantages记录了当前步的 A_t = ∑_{l=0}^{∞} (γλ)^l δ_{t+l}，其中δ_t = r_t + γ·V(s_{t+1}) - V(s_t)
         ## https://my.feishu.cn/docx/FlZndnhKTozJDTxcPBjcBRBdnUb?from=from_copylink
+        ## flatten底层的data_ptr会指向原始数据，但flatten返回的是一个新的张量
         observations = self.observations.flatten(0, 1)  # [num_envs, num_steps, obs_dim]→ [total_samples, obs_dim] 从第0维到第1维合并成一个新的维度，其他维度保持不变；索引按树结构排列
         actions = self.actions.flatten(0, 1)
         values = self.values.flatten(0, 1)
@@ -250,7 +251,7 @@ class RolloutStorage:
                 stop = (i + 1) * mini_batch_size
                 batch_idx = indices[start:stop]  # 随机选择mini_batch_size个样本
 
-                # Yield the mini-batch
+                # Yield the mini-batch  # 注意非连续index切片返回的都是copy，底层数据拷贝了一份（data_ptr指向不同的地方
                 yield RolloutStorage.Batch(
                     observations=observations[batch_idx],  # type: ignore  直接操作到TensorDict中的'policy'和'critic'
                     actions=actions[batch_idx],

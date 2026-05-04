@@ -29,7 +29,7 @@ class MLPModel(nn.Module):
 
     def __init__(
         self,
-        obs: TensorDict,
+        obs: TensorDict,  #
         obs_groups: dict[str, list[str]],
         obs_set: str,
         output_dim: int,
@@ -41,9 +41,18 @@ class MLPModel(nn.Module):
         """Initialize the MLP-based model.
 
         Args:
-            obs: Observation Dictionary.
-            obs_groups: Dictionary mapping observation sets to lists of observation groups.
+            obs: Observation Dictionary.      
+                {TensorDict(
+                    fields={
+                        critic: Tensor(shape=torch.Size([4, 11]), device=cpu, dtype=torch.float32, is_shared=False),
+                        policy: Tensor(shape=torch.Size([4, 8]), device=cpu, dtype=torch.float32, is_shared=False)},
+                    batch_size=torch.Size([4]),
+                    device=cpu,
+                    is_shared=False)}
+            obs_groups: Dictionary mapping observation sets to lists of observation groups. 
+                    Example: {"actor": ["policy"], "critic": ["policy"]}
             obs_set: Observation set to use for this model (e.g., "actor" or "critic").
+                    Example: "actor"
             output_dim: Dimension of the output.
             hidden_dims: Hidden dimensions of the MLP.
             activation: Activation function of the MLP.
@@ -77,7 +86,7 @@ class MLPModel(nn.Module):
 
         # Initialize distribution-specific MLP weights
         if self.distribution is not None:
-            self.distribution.init_mlp_weights(self.mlp)
+            self.distribution.init_mlp_weights(self.mlp)  # 只对状态相关高斯分布有效，使用面向对象的技巧
 
     def forward(
         self,
@@ -95,7 +104,7 @@ class MLPModel(nn.Module):
         """
         # If observations are padded for recurrent training but the model is non-recurrent, unpad the observations
         obs = unpad_trajectories(obs, masks) if masks is not None and not self.is_recurrent else obs
-        # Get MLP input latent
+        # Get MLP input latent  如果不是卷积神经网络的话直接只进行归一化处理（且还是有选择归一化器的前提下才进行处理）
         latent = self.get_latent(obs, masks, hidden_state)
         # MLP forward pass
         mlp_output = self.mlp(latent)
@@ -104,7 +113,7 @@ class MLPModel(nn.Module):
             if stochastic_output:
                 self.distribution.update(mlp_output)
                 return self.distribution.sample()
-            return self.distribution.deterministic_output(mlp_output)
+            return self.distribution.deterministic_output(mlp_output)  # 对于GaussianDistribution，直接返回均值
         return mlp_output
 
     def get_latent(
@@ -220,7 +229,9 @@ class _TorchMLPModel(nn.Module):
 
 
 class _OnnxMLPModel(nn.Module):
-    """Exportable MLP model for ONNX."""
+    """Exportable MLP model for ONNX.
+        从这里可清晰看到数据流：输入 -> 观察值归一化 -> MLP网络 -> 确定性输出
+    """
 
     is_recurrent: bool = False
 
@@ -231,7 +242,7 @@ class _OnnxMLPModel(nn.Module):
         self.obs_normalizer = copy.deepcopy(model.obs_normalizer)
         self.mlp = copy.deepcopy(model.mlp)
         if model.distribution is not None:
-            self.deterministic_output = model.distribution.as_deterministic_output_module()
+            self.deterministic_output = model.distribution.as_deterministic_output_module()  # 确定性输出 返回一个nn.Module  所有的 nn.Module都可以在 forward方法中进行接力前向传播
         else:
             self.deterministic_output = nn.Identity()
         self.input_size = model.obs_dim
@@ -240,7 +251,7 @@ class _OnnxMLPModel(nn.Module):
         """Run deterministic inference for ONNX export."""
         x = self.obs_normalizer(x)
         out = self.mlp(x)
-        return self.deterministic_output(out)
+        return self.deterministic_output(out) 
 
     def get_dummy_inputs(self) -> tuple[torch.Tensor]:
         """Return representative dummy inputs for ONNX tracing."""

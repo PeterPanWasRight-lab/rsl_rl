@@ -130,7 +130,7 @@ class Distribution(nn.Module):
 
 
 class GaussianDistribution(Distribution):
-    """Gaussian distribution module with state-independent standard deviation.
+    """Gaussian distribution module with state-independent standard deviation. 状态无关的标准差（就是我们常说的给定确定的标准差）
 
     This distribution parameterizes stochastic outputs using a multivariate Gaussian with diagonal covariance. The
     standard deviation can be a learnable parameter or a constant. It can be parameterized in either "scalar" space or
@@ -177,18 +177,19 @@ class GaussianDistribution(Distribution):
         # Internal torch distribution (populated by update())
         self._distribution: Normal | None = None
 
-        # Disable args validation for speedup
+        # Disable args validation for speedup  参数有效性检查，比如标准差为负值，无效！ValueError
         Normal.set_default_validate_args(False)
 
     def update(self, mlp_output: torch.Tensor) -> None:
         """Update the Gaussian distribution from MLP output."""
-        mean = mlp_output
+        mean = mlp_output  # mlp网络输出的是某一个动作的均值  mlp_output通常是mlp网络全部的动作输出
         if self.std_type == "scalar":
             std = self.std_param.clamp(self.std_range[0], self.std_range[1])
         elif self.std_type == "log":
             log_std = self.log_std_param.clamp(self.log_std_range[0], self.log_std_range[1])
             std = torch.exp(log_std)
-        self._distribution = Normal(mean, std)
+        self._distribution = Normal(mean, std)  # 下面没有使用rsample()  是PPO算法的特殊性导致，因为rollout阶段拿到的数据是“死数据”
+        # Normal只能表示多维但是相互独立的正太分布（但可以给成张量形式）。MultivariateNormal用于多维联合分布。
 
     def sample(self) -> torch.Tensor:
         """Sample from the Gaussian distribution."""
@@ -196,10 +197,16 @@ class GaussianDistribution(Distribution):
 
     def deterministic_output(self, mlp_output: torch.Tensor) -> torch.Tensor:
         """Extract the mean from the MLP output."""
+        # 纯为了代码接口设计的对称性而写的一个函数。
         return mlp_output
 
     def as_deterministic_output_module(self) -> nn.Module:
-        """Return an export-friendly module that extracts the mean from the MLP output."""
+        """Return an export-friendly module that extracts the mean from the MLP output.
+        使用确定性版本导出
+        export_model = model.as_deterministic_output_module()
+        traced = torch.jit.script(export_model)
+        traced.save("model.pt")
+        """
         return _IdentityDeterministicOutput()
 
     @property
@@ -220,7 +227,7 @@ class GaussianDistribution(Distribution):
     @property
     def entropy(self) -> torch.Tensor:
         """Return the entropy of the Gaussian distribution, summed over the last dimension."""
-        return self._distribution.entropy().sum(dim=-1)  # type: ignore
+        return self._distribution.entropy().sum(dim=-1)  # type: ignore 所有维度的分布的交叉熵之和(交叉熵大小只和方差有关)
 
     @property
     def params(self) -> tuple[torch.Tensor, ...]:
@@ -228,11 +235,13 @@ class GaussianDistribution(Distribution):
         return (self.mean, self.std)
 
     def log_prob(self, outputs: torch.Tensor) -> torch.Tensor:
-        """Compute the log probability under the Gaussian, summed over the last dimension."""
-        return self._distribution.log_prob(outputs).sum(dim=-1)  # type: ignore
+        """Compute the log probability under the Gaussian, summed over the last dimension.
+        PPO反向传播时，梯度过这不会断"""
+        return self._distribution.log_prob(outputs).sum(dim=-1)  # type: ignore   -1表示一个tensor的最内层
 
     def kl_divergence(self, old_params: tuple[torch.Tensor, ...], new_params: tuple[torch.Tensor, ...]) -> torch.Tensor:
-        """Compute KL(old || new) between two Gaussian distributions using torch.distributions."""
+        """Compute KL(old || new) between two Gaussian distributions using torch.distributions.
+        注意只能是相同维度的分布之间计算KL散度"""
         old_mean, old_std = old_params
         new_mean, new_std = new_params
         old_dist = Normal(old_mean, old_std)
@@ -241,7 +250,7 @@ class GaussianDistribution(Distribution):
 
 
 class HeteroscedasticGaussianDistribution(GaussianDistribution):
-    """Gaussian distribution module with state-dependent standard deviation.
+    """Gaussian distribution module with state-dependent standard deviation. 状态相关的标准差
 
     This distribution parameterizes stochastic outputs using a multivariate Gaussian with diagonal covariance. The
     standard deviation is output by the MLP alongside the mean, making it state-dependent. It can be parameterized in
