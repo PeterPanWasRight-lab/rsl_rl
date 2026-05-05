@@ -98,9 +98,9 @@ class PPO:
         # 理论上也可以分开，只要自己把控好更新的时间节点，就可以分开更新。
         # 但分开会在不经意之间造成，由于时滞导致的相互拉扯。 当你明确希望两个网络的学习速度完全不同，且不希望它们的梯度互相干扰时，可以分开优化。
 
-        # =======Add storage======
-        self.storage = storage
-        self.transition = RolloutStorage.Transition()
+        # =======Add storage======  内存中申请了两个区域
+        self.storage = storage    # type: RolloutStorage
+        self.transition = RolloutStorage.Transition()  # self.storage.add_transition(self.transition)
 
         # ========PPO parameters======
         self.clip_param = clip_param
@@ -122,14 +122,15 @@ class PPO:
         # Record the hidden states for recurrent policies
         self.transition.hidden_states = (self.actor.get_hidden_state(), self.critic.get_hidden_state())
         # Compute the actions and values
-        self.transition.actions = self.actor(obs, stochastic_output=True).detach()
+        self.transition.actions = self.actor(obs, stochastic_output=True).detach()  # 当前策略下，依据当前观测到的状态，输出当前应该执行的动作；detach()断开梯度链接
         self.transition.values = self.critic(obs).detach()
-        self.transition.actions_log_prob = self.actor.get_output_log_prob(self.transition.actions).detach()  # type: ignore
-        self.transition.distribution_params = tuple(p.detach() for p in self.actor.output_distribution_params)
+        self.transition.actions_log_prob = self.actor.get_output_log_prob(self.transition.actions).detach()     # pi(at/st)
+        self.transition.distribution_params = tuple(p.detach() for p in self.actor.output_distribution_params)  # mu和std，分布的参数;两个故用tuple装起来
         # Record observations before env.step()
         self.transition.observations = obs
         return self.transition.actions  # type: ignore
 
+    # OnPolicy里面先执行 上面的 act  然后会输出一个action，接着把这个action向环境输入，会返回一个新的obs，reward，done等信息；接着这个新的obs会被输入到下面的process_env_step函数中，进行数据记录和normalization更新等操作；
     def process_env_step(
         self, obs: TensorDict, rewards: torch.Tensor, dones: torch.Tensor, extras: dict[str, torch.Tensor]
     ) -> None:
@@ -159,12 +160,13 @@ class PPO:
                 1,
             )
 
-        # Record the transition
+        # Record the transition  单步数据压入长期数据存储器storage中
         self.storage.add_transition(self.transition)
         self.transition.clear()
-        self.actor.reset(dones)
+        self.actor.reset(dones)    # MLP 直接pass ，RNN会根据done把hidden state重置为0；如果是多层RNN，还要根据done把每一层的hidden state都重置为0；如果是CNN，就不需要reset了，因为CNN没有hidden state；如果是Transformer，也不需要reset了，因为Transformer没有hidden state；如果是其他类型的模型，就要根据具体情况来决定是否需要reset了。
         self.critic.reset(dones)
 
+    # 等跑完一个rollout之后，就会调用compute_returns函数，计算每个时间点的return和advantage；
     def compute_returns(self, obs: TensorDict) -> None:
         """Compute return and advantage targets from stored transitions."""
         # 只有跑完一个rollout才能得到一个轨迹上每一个时间点的return和Advantage 
@@ -191,6 +193,7 @@ class PPO:
         if not self.normalize_advantage_per_mini_batch:
             st.advantages = (st.advantages - st.advantages.mean()) / (st.advantages.std() + 1e-8)
 
+    # 接上面的compute_returns函数，计算完return和advantage之后，就会调用update函数，进行参数更新；update函数中会先生成一个mini-batch的生成器，然后在每个mini-batch上进行多轮优化；每轮优化中，会先根据当前的policy重新计算动作的log概率和熵，然后计算surrogate loss、value loss、entropy loss等，并进行反向传播和参数更新；最后返回平均损失。
     def update(self) -> dict[str, float]:
         """Run optimization epochs over stored batches and return mean losses."""
         mean_value_loss = 0
@@ -220,19 +223,19 @@ class PPO:
             if self.symmetry:
                 self.symmetry.augment_batch(batch, original_batch_size)
 
-            # Recompute actions log prob and entropy for current batch of transitions
+            # Recompute actions log prob and entropy for current batch of transitions   forward函数里面，self.distribution.update(mlp_output)这一步进行梯度链接的
             # Note: We need to do this because we updated the policy with new parameters
             self.actor(
                 batch.observations,
                 masks=batch.masks,
                 hidden_state=batch.hidden_states[0],
                 stochastic_output=True,
-            )
-            actions_log_prob = self.actor.get_output_log_prob(batch.actions)  # type: ignore
+            )   # 调用了actor的forward函数  forward输出的值，没有接收；这是由于sample()断开了梯度，所以没啥用
+            actions_log_prob = self.actor.get_output_log_prob(batch.actions)  # 用当前的policy计算之前oldPolicy的action对应的概率
             values = self.critic(batch.observations, masks=batch.masks, hidden_state=batch.hidden_states[1])
             # Note: We only keep the following tensors for the original samples in case of symmetry augmentation
             distribution_params = tuple(p[:original_batch_size] for p in self.actor.output_distribution_params)
-            entropy = self.actor.output_entropy[:original_batch_size]
+            entropy = self.actor.output_entropy[:original_batch_size]  # 熵，只和分布的std有关。 这里的std就是action._distribution里面的std
 
             # Compute KL divergence and adapt the learning rate
             if self.desired_kl is not None and self.schedule == "adaptive":
@@ -262,7 +265,7 @@ class PPO:
                     for param_group in self.optimizer.param_groups:
                         param_group["lr"] = self.learning_rate
 
-            # Surrogate loss
+            # Surrogate loss  只有actions_log_prob有梯度 
             ratio = torch.exp(actions_log_prob - torch.squeeze(batch.old_actions_log_prob))  # type: ignore
             surrogate = -torch.squeeze(batch.advantages) * ratio  # type: ignore
             surrogate_clipped = -torch.squeeze(batch.advantages) * torch.clamp(  # type: ignore
@@ -270,7 +273,7 @@ class PPO:
             )
             surrogate_loss = torch.max(surrogate, surrogate_clipped).mean()
 
-            # Value function loss
+            # Value function loss  这个小菜鸡最简单 注意用returns进行更新 而不是 Adavngtage
             if self.use_clipped_value_loss:
                 value_clipped = batch.values + (values - batch.values).clamp(-self.clip_param, self.clip_param)
                 value_losses = (values - batch.returns).pow(2)
@@ -278,8 +281,11 @@ class PPO:
                 value_loss = torch.max(value_losses, value_losses_clipped).mean()
             else:
                 value_loss = (batch.returns - values).pow(2).mean()
-
-            loss = surrogate_loss + self.value_loss_coef * value_loss - self.entropy_coef * entropy.mean()
+            # 策略损失 通过最大化这个损失函数，我们可以更新策略，使其在保持一定程度稳定性的同时，朝着更高奖励的方向改进。作用于actor网络
+            # 价值损失 通过最小化这个损失函数，我们可以更新价值函数，使其更准确地预测未来的回报，从而帮助策略更好地评估动作的价值。作用于critic网络
+            # 熵损失  熵损失的作用是鼓励策略保持一定的随机性，避免过早收敛到次优解。通过最大化熵，我们可以促进探索，从而提高算法在复杂环境中的表现。较高的entropy_coef会鼓励更多的探索，而较低的entropy_coef会使策略更倾向于利用当前已知的最佳动作。可以用动态参数，保证算法收敛
+            # 这里的loss把actor和critic网络混在了一起，所以上面初始化优化器的时候，需要把两者的参数揉在一起。（其实不揉在一起也可以，就是要分两次更新，麻烦，易错）
+            loss = surrogate_loss + self.value_loss_coef * value_loss - self.entropy_coef * entropy.mean()  # 梯度  
 
             # RND loss
             rnd_loss = self.rnd.compute_loss(batch.observations[:original_batch_size]) if self.rnd else None  # type: ignore

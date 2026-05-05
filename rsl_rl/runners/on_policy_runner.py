@@ -78,17 +78,17 @@ class OnPolicyRunner:
         total_it = start_it + num_learning_iterations
         for it in range(start_it, total_it):
             start = time.time()
-            # Rollout
+            # Rollout  只收集数据，不进行更新，整个过程，所有变量都不需计算梯度
             with torch.inference_mode():
                 for _ in range(self.cfg["num_steps_per_env"]):
                     # Sample actions
                     actions = self.alg.act(obs)
-                    # Step the environment
+                    # Step the environment 返回不带梯度的obs, reward，done  因为这些都是物理仿真输出的
                     obs, rewards, dones, extras = self.env.step(actions.to(self.env.device))
                     # Check for NaN values from the environment
                     if self.cfg.get("check_for_nan", True):
                         check_nan(obs, rewards, dones)
-                    # Move to device
+                    # Move to device  
                     obs, rewards, dones = (obs.to(self.device), rewards.to(self.device), dones.to(self.device))
                     # Process the step
                     self.alg.process_env_step(obs, rewards, dones, extras)
@@ -104,7 +104,7 @@ class OnPolicyRunner:
                 # Compute returns
                 self.alg.compute_returns(obs)
 
-            # Update policy
+            # Update policy   进行更新，部分变量需要梯度
             loss_dict = self.alg.update()
 
             stop = time.time()
